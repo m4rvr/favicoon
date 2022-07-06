@@ -1,4 +1,5 @@
 import { type JSX, Show, createSignal } from 'solid-js'
+import { toast } from 'solid-toast'
 import type { UploadedImage } from '../types'
 
 const bytesToMegaBytes = (bytes: number) => bytes / 1024 ** 2
@@ -74,12 +75,12 @@ export default function (): JSX.Element {
 
   const processFile = (file: File) => {
     if (!allowedFileTypes.includes(file.type)) {
-      // toast('File type not allowed.')
+      toast('File type not allowed.')
       throw new Error('File type not allowed.')
     }
 
     if (bytesToMegaBytes(file.size) > 2) {
-      // toast('File is too large.')
+      toast('File is too large.')
       throw new Error('File is too large.')
     }
 
