@@ -6,5 +6,10 @@ import netlify from '@astrojs/netlify'
 // https://astro.build/config
 export default defineConfig({
   integrations: [solid(), tailwind({})],
-  adapter: netlify()
+  adapter: netlify(),
+  vite: {
+    resolve: {
+      conditions: ['solid']
+    }
+  }
 })

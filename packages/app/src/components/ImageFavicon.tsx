@@ -136,6 +136,13 @@ export default function (): JSX.Element {
     setIsOverDropzone(false)
   }
 
+  const generateFavicon = async () => {
+    const data = await fetch('http://localhost:8888/api').then((res) =>
+      res.text()
+    )
+    console.log(data)
+  }
+
   return (
     <Show
       when={image()}
@@ -254,6 +261,12 @@ export default function (): JSX.Element {
             512px or higher
           </div>
         </div>
+        <button
+          class="rounded-xl bg-blue-500 px-6 py-2 text-white"
+          onClick={generateFavicon}
+        >
+          Generate
+        </button>
       </div>
     </Show>
   )
