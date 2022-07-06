@@ -69,6 +69,7 @@ importers:
 
   packages/app:
     specifiers:
+      '@astrojs/netlify': ^0.4.8
       '@astrojs/solid-js': ^0.2.0
       '@astrojs/tailwind': ^0.2.2
       '@babel/core': ^7.18.6
@@ -79,6 +80,7 @@ importers:
     dependencies:
       tailwind: 4.0.0
     devDependencies:
+      '@astrojs/netlify': 0.4.8
       '@astrojs/solid-js': 0.2.0_mgszwrjqbyg3vr4bcoyunonmd4
       '@astrojs/tailwind': 0.2.2
       '@babel/core': 7.18.6
@@ -211,6 +213,13 @@ packages:
       micromark-util-types: 1.0.2
       uvu: 0.5.6
       vfile-message: 3.1.2
+    dev: true
+
+  /@astrojs/netlify/0.4.8:
+    resolution: {integrity: sha512-Lgg8kVI9+r4jSCJKNs7kJL3GBzHdidgavO7XKVvn6Q2dA2JcYh9WszLlj9Fyoy3v/Lsu1Xry7jiLWOJzXTl5vQ==}
+    dependencies:
+      '@astrojs/webapi': 0.12.0
+      esbuild: 0.14.48
     dev: true
 
   /@astrojs/prism/0.4.1:

@@ -13,6 +13,7 @@
     "tailwind": "^4.0.0"
   },
   "devDependencies": {
+    "@astrojs/netlify": "^0.4.8",
     "@astrojs/solid-js": "^0.2.0",
     "@astrojs/tailwind": "^0.2.2",
     "@babel/core": "^7.18.6",
