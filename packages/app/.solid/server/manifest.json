@@ -4,7 +4,15 @@
     "src": "src/entry-server.tsx",
     "isEntry": true,
     "css": [
-      "assets/entry-server.bd9ab871.css"
+      "assets/entry-server.177e1d08.css"
+    ],
+    "assets": [
+      "assets/inter-v11-latin-regular.d56fec21.woff2",
+      "assets/inter-v11-latin-regular.9ec803ce.woff",
+      "assets/inter-v11-latin-500.aa5a5a7a.woff2",
+      "assets/inter-v11-latin-500.c8015ce3.woff",
+      "assets/inter-v11-latin-600.ff769fa6.woff2",
+      "assets/inter-v11-latin-600.d4339a04.woff"
     ]
   }
 }

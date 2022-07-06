@@ -75,13 +75,13 @@ export default function (): JSX.Element {
 
   const processFile = (file: File) => {
     if (!allowedFileTypes.includes(file.type)) {
-      toast('File type not allowed.')
-      throw new Error('File type not allowed.')
+      toast.error('Only PNG or SVG files are allowed.')
+      return
     }
 
     if (bytesToMegaBytes(file.size) > 2) {
-      toast('File is too large.')
-      throw new Error('File is too large.')
+      toast.error('The uploaded file is too large.')
+      return
     }
 
     const reader = new FileReader()
@@ -262,12 +262,15 @@ export default function (): JSX.Element {
             512px or higher
           </div>
         </div>
-        <button
-          class="rounded-xl bg-blue-500 px-6 py-2 text-white"
-          onClick={generateFavicon}
-        >
-          Generate
-        </button>
+        <div class="flex items-center justify-center mt-10">
+          <button class="px-6 py-2">Re-upload Image</button>
+          <button
+            class="rounded-xl bg-blue-500 px-6 py-2 text-white"
+            onClick={generateFavicon}
+          >
+            Generate Favicon
+          </button>
+        </div>
       </div>
     </Show>
   )

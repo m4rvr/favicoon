@@ -1,5 +1,6 @@
-import { renderToStringAsync, isServer, createComponent, Assets, ssr, ssrHydrationKey, ssrAttribute, escape, HydrationScript, NoHydration, Dynamic } from 'solid-js/web';
-import { createContext, createSignal, onMount, onCleanup, runWithOwner, createMemo, getOwner, useContext, createComponent as createComponent$1, useTransition, on, untrack, resetErrorBoundaries, createRenderEffect, children, createRoot, Show, lazy, ErrorBoundary as ErrorBoundary$1, Suspense, sharedConfig, For } from 'solid-js';
+import { renderToStringAsync, isServer, createComponent, Assets, ssr, ssrHydrationKey, ssrAttribute, escape, HydrationScript, NoHydration, ssrStyle, mergeProps, ssrSpread, Dynamic } from 'solid-js/web';
+import { createContext, createSignal, onMount, onCleanup, runWithOwner, createMemo, getOwner, useContext, createComponent as createComponent$1, useTransition, on, untrack, resetErrorBoundaries, createRenderEffect, children, createRoot, Show, lazy, ErrorBoundary as ErrorBoundary$1, createEffect, For, Switch, Match, Suspense, sharedConfig } from 'solid-js';
+import { createStore, produce } from 'solid-js/store';
 
 function renderAsync(fn, options) {
   return () => async (context) => {
@@ -810,8 +811,8 @@ function StartProvider(props) {
   });
 }
 
-const _tmpl$$9 = ["<link", " rel=\"stylesheet\"", ">"],
-      _tmpl$2$3 = ["<link", " rel=\"modulepreload\"", ">"];
+const _tmpl$$f = ["<link", " rel=\"stylesheet\"", ">"],
+      _tmpl$2$4 = ["<link", " rel=\"modulepreload\"", ">"];
 
 function getAssetsFromManifest(manifest, routerContext) {
   const match = routerContext.matches.reduce((memo, m) => {
@@ -819,7 +820,7 @@ function getAssetsFromManifest(manifest, routerContext) {
     return memo;
   }, []);
   const links = match.reduce((r, src) => {
-    r[src.href] = src.type === "style" ? ssr(_tmpl$$9, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false)) : ssr(_tmpl$2$3, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false));
+    r[src.href] = src.type === "style" ? ssr(_tmpl$$f, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false)) : ssr(_tmpl$2$4, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false));
     return r;
   }, {});
   return Object.values(links);
@@ -867,12 +868,12 @@ const routes = [{
 
 const Routes = useRoutes(routes);
 
-const _tmpl$$8 = ["<script", " type=\"module\" async", "></script>"];
+const _tmpl$$e = ["<script", " type=\"module\" async", "></script>"];
 
 function getFromManifest(manifest) {
   const match = manifest["*"];
   const entry = match.find(src => src.type === "script");
-  return ssr(_tmpl$$8, ssrHydrationKey(), ssrAttribute("src", escape(entry.href, true), false));
+  return ssr(_tmpl$$e, ssrHydrationKey(), ssrAttribute("src", escape(entry.href, true), false));
 }
 
 function Scripts() {
@@ -885,7 +886,7 @@ function Scripts() {
   })];
 }
 
-const _tmpl$$7 = ["<div", " style=\"", "\"><div style=\"", "\"><p style=\"", "\" id=\"error-message\">", "</p><button id=\"reset-errors\" style=\"", "\">Clear errors and retry</button><pre style=\"", "\">", "</pre></div></div>"];
+const _tmpl$$d = ["<div", " style=\"", "\"><div style=\"", "\"><p style=\"", "\" id=\"error-message\">", "</p><button id=\"reset-errors\" style=\"", "\">Clear errors and retry</button><pre style=\"", "\">", "</pre></div></div>"];
 function ErrorBoundary(props) {
   return createComponent(ErrorBoundary$1, {
     fallback: e => {
@@ -915,15 +916,475 @@ function ErrorBoundary(props) {
 }
 
 function ErrorMessage(props) {
-  return ssr(_tmpl$$7, ssrHydrationKey(), "padding:" + "16px", "background-color:" + "rgba(252, 165, 165)" + (";color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";overflow:" + "scroll") + (";padding:" + "16px") + (";margin-bottom:" + "8px"), "font-weight:" + "bold", escape(props.error.message), "color:" + "rgba(252, 165, 165)" + (";background-color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";padding:" + "4px 8px"), "margin-top:" + "8px" + (";width:" + "100%"), escape(props.error.stack));
+  return ssr(_tmpl$$d, ssrHydrationKey(), "padding:" + "16px", "background-color:" + "rgba(252, 165, 165)" + (";color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";overflow:" + "scroll") + (";padding:" + "16px") + (";margin-bottom:" + "8px"), "font-weight:" + "bold", escape(props.error.message), "color:" + "rgba(252, 165, 165)" + (";background-color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";padding:" + "4px 8px"), "margin-top:" + "8px" + (";width:" + "100%"), escape(props.error.stack));
 }
 
 var __uno = /* #__PURE__ */ (() => "#--unocss--{layer:__ALL__}")();
 
 var tailwind = /* #__PURE__ */ (() => "/*\n1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)\n2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)\n*/\n\n*,\n::before,\n::after {\n  box-sizing: border-box; /* 1 */\n  border-width: 0; /* 2 */\n  border-style: solid; /* 2 */\n  border-color: currentColor; /* 2 */\n}\n\n/*\n1. Use a consistent sensible line-height in all browsers.\n2. Prevent adjustments of font size after orientation changes in iOS.\n3. Use a more readable tab size.\n4. Use the user's configured `sans` font-family by default.\n*/\n\nhtml {\n  line-height: 1.5; /* 1 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n  -moz-tab-size: 4; /* 3 */\n  tab-size: 4; /* 3 */\n  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"; /* 4 */\n}\n\n/*\n1. Remove the margin in all browsers.\n2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.\n*/\n\nbody {\n  margin: 0; /* 1 */\n  line-height: inherit; /* 2 */\n}\n\n/*\n1. Add the correct height in Firefox.\n2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)\n3. Ensure horizontal rules are visible by default.\n*/\n\nhr {\n  height: 0; /* 1 */\n  color: inherit; /* 2 */\n  border-top-width: 1px; /* 3 */\n}\n\n/*\nAdd the correct text decoration in Chrome, Edge, and Safari.\n*/\n\nabbr:where([title]) {\n  text-decoration: underline dotted;\n}\n\n/*\nRemove the default font size and weight for headings.\n*/\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: inherit;\n}\n\n/*\nReset links to optimize for opt-in styling instead of opt-out.\n*/\n\na {\n  color: inherit;\n  text-decoration: inherit;\n}\n\n/*\nAdd the correct font weight in Edge and Safari.\n*/\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/*\n1. Use the user's configured `mono` font family by default.\n2. Correct the odd `em` font sizing in all browsers.\n*/\n\ncode,\nkbd,\nsamp,\npre {\n  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace; /* 1 */\n  font-size: 1em; /* 2 */\n}\n\n/*\nAdd the correct font size in all browsers.\n*/\n\nsmall {\n  font-size: 80%;\n}\n\n/*\nPrevent `sub` and `sup` elements from affecting the line height in all browsers.\n*/\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/*\n1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)\n2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)\n3. Remove gaps between table borders by default.\n*/\n\ntable {\n  text-indent: 0; /* 1 */\n  border-color: inherit; /* 2 */\n  border-collapse: collapse; /* 3 */\n}\n\n/*\n1. Change the font styles in all browsers.\n2. Remove the margin in Firefox and Safari.\n3. Remove default padding in all browsers.\n*/\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit; /* 1 */\n  font-size: 100%; /* 1 */\n  font-weight: inherit; /* 1 */\n  line-height: inherit; /* 1 */\n  color: inherit; /* 1 */\n  margin: 0; /* 2 */\n  padding: 0; /* 3 */\n}\n\n/*\nRemove the inheritance of text transform in Edge and Firefox.\n*/\n\nbutton,\nselect {\n  text-transform: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Remove default button styles.\n*/\n\nbutton,\n[type='button'],\n[type='reset'],\n[type='submit'] {\n  -webkit-appearance: button; /* 1 */\n  background-color: transparent; /* 2 */\n  background-image: none; /* 2 */\n}\n\n/*\nUse the modern Firefox focus style for all focusable elements.\n*/\n\n:-moz-focusring {\n  outline: auto;\n}\n\n/*\nRemove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)\n*/\n\n:-moz-ui-invalid {\n  box-shadow: none;\n}\n\n/*\nAdd the correct vertical alignment in Chrome and Firefox.\n*/\n\nprogress {\n  vertical-align: baseline;\n}\n\n/*\nCorrect the cursor style of increment and decrement buttons in Safari.\n*/\n\n::-webkit-inner-spin-button,\n::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/*\n1. Correct the odd appearance in Chrome and Safari.\n2. Correct the outline style in Safari.\n*/\n\n[type='search'] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/*\nRemove the inner padding in Chrome and Safari on macOS.\n*/\n\n::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Change font properties to `inherit` in Safari.\n*/\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/*\nAdd the correct display in Chrome and Safari.\n*/\n\nsummary {\n  display: list-item;\n}\n\n/*\nRemoves the default spacing and border for appropriate elements.\n*/\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nhr,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nlegend {\n  padding: 0;\n}\n\nol,\nul,\nmenu {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n/*\nPrevent resizing textareas horizontally by default.\n*/\n\ntextarea {\n  resize: vertical;\n}\n\n/*\n1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)\n2. Set the default placeholder color to the user's configured gray 400 color.\n*/\n\ninput::placeholder,\ntextarea::placeholder {\n  opacity: 1; /* 1 */\n  color: #9ca3af; /* 2 */\n}\n\n/*\nSet the default cursor for buttons.\n*/\n\nbutton,\n[role=\"button\"] {\n  cursor: pointer;\n}\n\n/*\nMake sure disabled buttons don't get the pointer cursor.\n*/\n:disabled {\n  cursor: default;\n}\n\n/*\n1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)\n2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)\n   This can trigger a poorly considered lint error in some tools but is included by design.\n*/\n\nimg,\nsvg,\nvideo,\ncanvas,\naudio,\niframe,\nembed,\nobject {\n  display: block; /* 1 */\n  vertical-align: middle; /* 2 */\n}\n\n/*\nConstrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)\n*/\n\nimg,\nvideo {\n  max-width: 100%;\n  height: auto;\n}\n")();
 
+var fonts = /* #__PURE__ */ (() => "/* inter-regular - latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  src: url('./fonts/inter-v11-latin-regular.eot');\n  /* IE9 Compat Modes */\n  src: local(''),\n    url('./fonts/inter-v11-latin-regular.eot?#iefix') format('embedded-opentype'),\n    \n    url('/assets/inter-v11-latin-regular.d56fec21.woff2') format('woff2'),\n    \n    url('/assets/inter-v11-latin-regular.9ec803ce.woff') format('woff'),\n    \n    url('./fonts/inter-v11-latin-regular.ttf') format('truetype'),\n    \n    url('./fonts/inter-v11-latin-regular.svg#Inter') format('svg');\n  /* Legacy iOS */\n}\n\n/* inter-500 - latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  src: url('./fonts/inter-v11-latin-500.eot');\n  /* IE9 Compat Modes */\n  src: local(''),\n    url('./fonts/inter-v11-latin-500.eot?#iefix') format('embedded-opentype'),\n    \n    url('/assets/inter-v11-latin-500.aa5a5a7a.woff2') format('woff2'),\n    \n    url('/assets/inter-v11-latin-500.c8015ce3.woff') format('woff'),\n    \n    url('./fonts/inter-v11-latin-500.ttf') format('truetype'),\n    \n    url('./fonts/inter-v11-latin-500.svg#Inter') format('svg');\n  /* Legacy iOS */\n}\n\n/* inter-600 - latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  src: url('./fonts/inter-v11-latin-600.eot');\n  /* IE9 Compat Modes */\n  src: local(''),\n    url('./fonts/inter-v11-latin-600.eot?#iefix') format('embedded-opentype'),\n    \n    url('/assets/inter-v11-latin-600.ff769fa6.woff2') format('woff2'),\n    \n    url('/assets/inter-v11-latin-600.d4339a04.woff') format('woff'),\n    \n    url('./fonts/inter-v11-latin-600.ttf') format('truetype'),\n    \n    url('./fonts/inter-v11-latin-600.svg#Inter') format('svg');\n  /* Legacy iOS */\n}")();
+
+const isFunction = (valOrFunction) => typeof valOrFunction === 'function';
+const resolveValue = (valOrFunction, arg) => (isFunction(valOrFunction) ? valOrFunction(arg) : valOrFunction);
+
+var ActionType;
+(function (ActionType) {
+    ActionType[ActionType["ADD_TOAST"] = 0] = "ADD_TOAST";
+    ActionType[ActionType["UPDATE_TOAST"] = 1] = "UPDATE_TOAST";
+    ActionType[ActionType["UPSERT_TOAST"] = 2] = "UPSERT_TOAST";
+    ActionType[ActionType["DISMISS_TOAST"] = 3] = "DISMISS_TOAST";
+    ActionType[ActionType["REMOVE_TOAST"] = 4] = "REMOVE_TOAST";
+    ActionType[ActionType["START_PAUSE"] = 5] = "START_PAUSE";
+    ActionType[ActionType["END_PAUSE"] = 6] = "END_PAUSE";
+})(ActionType || (ActionType = {}));
+
+const [store, setStore] = createStore({
+    toasts: [],
+    pausedAt: undefined,
+});
+const createTimers = () => {
+    const { pausedAt, toasts } = store;
+    if (pausedAt)
+        return;
+    const now = Date.now();
+    const timers = toasts.map(toast => {
+        if (toast.duration === Infinity)
+            return;
+        const durationLeft = (toast.duration || 0) + toast.pauseDuration - (now - toast.createdAt);
+        if (durationLeft <= 0) {
+            if (toast.visible) {
+                dispatch({
+                    type: ActionType.DISMISS_TOAST,
+                    toastId: toast.id
+                });
+            }
+            return;
+        }
+        return setTimeout(() => {
+            dispatch({
+                type: ActionType.DISMISS_TOAST,
+                toastId: toast.id
+            });
+        }, durationLeft);
+    });
+    return timers;
+};
+const removalQueue = new Map();
+const scheduleRemoval = (toastId, unmountDelay) => {
+    if (removalQueue.has(toastId))
+        return;
+    const timeout = setTimeout(() => {
+        removalQueue.delete(toastId);
+        dispatch({
+            type: ActionType.REMOVE_TOAST,
+            toastId
+        });
+    }, unmountDelay);
+    removalQueue.set(toastId, timeout);
+};
+const unscheduleRemoval = (toastId) => {
+    const timeout = removalQueue.get(toastId);
+    removalQueue.delete(toastId);
+    if (timeout)
+        clearTimeout(timeout);
+};
+const dispatch = (action) => {
+    switch (action.type) {
+        case ActionType.ADD_TOAST:
+            setStore('toasts', t => {
+                const toasts = t;
+                return [action.toast, ...toasts];
+            });
+            break;
+        case ActionType.DISMISS_TOAST:
+            const { toastId } = action;
+            const toasts = store.toasts;
+            if (toastId) {
+                const toastToRemove = toasts.find(t => t.id === toastId);
+                if (toastToRemove)
+                    scheduleRemoval(toastId, toastToRemove.unmountDelay);
+            }
+            else {
+                toasts.forEach(t => {
+                    scheduleRemoval(t.id, t.unmountDelay);
+                });
+            }
+            setStore('toasts', t => t.id === toastId, produce(t => t.visible = false));
+            break;
+        case ActionType.REMOVE_TOAST:
+            if (!action.toastId) {
+                setStore('toasts', []);
+                break;
+            }
+            setStore('toasts', t => {
+                const toasts = t;
+                return toasts.filter(t => t.id !== action.toastId);
+            });
+            break;
+        case ActionType.UPDATE_TOAST:
+            if (action.toast.id) {
+                unscheduleRemoval(action.toast.id);
+            }
+            setStore('toasts', t => t.id === action.toast.id, t => {
+                const toast = t;
+                return {
+                    ...toast,
+                    ...action.toast,
+                };
+            });
+            break;
+        case ActionType.UPSERT_TOAST:
+            store.toasts.find(t => t.id === action.toast.id) ?
+                dispatch({ type: ActionType.UPDATE_TOAST, toast: action.toast }) :
+                dispatch({ type: ActionType.ADD_TOAST, toast: action.toast });
+            break;
+        case ActionType.START_PAUSE:
+            setStore('pausedAt', Date.now());
+            break;
+        case ActionType.END_PAUSE:
+            const pauseInterval = action.time - (store.pausedAt || 0);
+            setStore(produce(s => {
+                s.pausedAt = undefined;
+                s.toasts.forEach(t => {
+                    t.pauseDuration += pauseInterval;
+                });
+            }));
+            break;
+    }
+};
+
+const defaultTimeouts = {
+    blank: 4000,
+    error: 4000,
+    success: 2000,
+    loading: Infinity,
+    custom: 4000,
+};
+const defaultToastOptions = {
+    id: '',
+    icon: '',
+    unmountDelay: 500,
+    duration: 3000,
+    ariaProps: {
+        role: 'status',
+        'aria-live': 'polite',
+    },
+    className: '',
+    style: {},
+    position: 'top-right',
+    iconTheme: {}
+};
+const defaultToasterOptions = {
+    position: 'top-right',
+    toastOptions: defaultToastOptions,
+    gutter: 8,
+    containerStyle: {},
+    containerClassName: ''
+};
+const defaultContainerPadding = '16px';
+const defaultContainerStyle = {
+    position: 'fixed',
+    'z-index': 9999,
+    top: defaultContainerPadding,
+    bottom: defaultContainerPadding,
+    left: defaultContainerPadding,
+    right: defaultContainerPadding,
+    "pointer-events": 'none'
+};
+
+const generateID = (() => {
+    let count = 0;
+    return () => String(++count);
+})();
+const mergeContainerOptions = (props) => {
+    setDefaultOpts(s => ({
+        containerClassName: props.containerClassName ?? s.containerClassName,
+        containerStyle: props.containerStyle ?? s.containerStyle,
+        gutter: props.gutter ?? s.gutter,
+        position: props.position ?? s.position,
+        toastOptions: {
+            ...props.toastOptions,
+        }
+    }));
+};
+const getToastWrapperStyles = (position, offset) => {
+    const top = position.includes('top');
+    const verticalStyle = top ? { top: 0 } : { bottom: 0 };
+    const horizontalStyle = position.includes('center')
+        ? { 'justify-content': 'center' }
+        : position.includes('right')
+            ? { 'justify-content': 'flex-end' }
+            : {};
+    return {
+        left: 0,
+        right: 0,
+        display: 'flex',
+        position: 'absolute',
+        transition: `all 230ms cubic-bezier(.21,1.02,.73,1)`,
+        transform: `translateY(${offset * (top ? 1 : -1)}px)`,
+        ...verticalStyle,
+        ...horizontalStyle,
+    };
+};
+const getWrapperYAxisOffset = (toast, position) => {
+    const { toasts } = store;
+    const gutter = defaultOpts().gutter || defaultToasterOptions.gutter || 8;
+    const relevantToasts = toasts.filter(t => ((t.position || position) === position && t.height));
+    const toastIndex = relevantToasts.findIndex((t) => t.id === toast.id);
+    const toastsBefore = relevantToasts.filter((toast, i) => i < toastIndex && toast.visible).length;
+    const offset = relevantToasts
+        .slice(0, toastsBefore)
+        .reduce((acc, t) => acc + gutter + (t.height || 0), 0);
+    return offset;
+};
+const getToastYDirection = (toast, defaultPos) => {
+    const position = toast.position || defaultPos;
+    const top = position.includes('top');
+    return top ? 1 : -1;
+};
+
+let e={data:""},t=t=>"object"==typeof window?((t?t.querySelector("#_goober"):window._goober)||Object.assign((t||document.head).appendChild(document.createElement("style")),{innerHTML:" ",id:"_goober"})).firstChild:t||e,l=/(?:([\u0080-\uFFFF\w-%@]+) *:? *([^{;]+?);|([^;}{]*?) *{)|(}\s*)/g,a=/\/\*[^]*?\*\/|  +/g,n=/\n+/g,o=(e,t)=>{let r="",l="",a="";for(let n in e){let c=e[n];"@"==n[0]?"i"==n[1]?r=n+" "+c+";":l+="f"==n[1]?o(c,n):n+"{"+o(c,"k"==n[1]?"":t)+"}":"object"==typeof c?l+=o(c,t?t.replace(/([^,])+/g,e=>n.replace(/(^:.*)|([^,])+/g,t=>/&/.test(t)?t.replace(/&/g,e):e?e+" "+t:t)):n):null!=c&&(n=/^--/.test(n)?n:n.replace(/[A-Z]/g,"-$&").toLowerCase(),a+=o.p?o.p(n,c):n+":"+c+";");}return r+(t&&a?t+"{"+a+"}":a)+l},c={},s=e=>{if("object"==typeof e){let t="";for(let r in e)t+=r+s(e[r]);return t}return e},i=(e,t,r,i,p)=>{let u=s(e),d=c[u]||(c[u]=(e=>{let t=0,r=11;for(;t<e.length;)r=101*r+e.charCodeAt(t++)>>>0;return "go"+r})(u));if(!c[d]){let t=u!==e?e:(e=>{let t,r,o=[{}];for(;t=l.exec(e.replace(a,""));)t[4]?o.shift():t[3]?(r=t[3].replace(n," ").trim(),o.unshift(o[0][r]=o[0][r]||{})):o[0][t[1]]=t[2].replace(n," ").trim();return o[0]})(e);c[d]=o(p?{["@keyframes "+d]:t}:t,r?"":"."+d);}return ((e,t,r)=>{-1==t.data.indexOf(e)&&(t.data=r?e+t.data:t.data+e);})(c[d],t,i),d},p=(e,t,r)=>e.reduce((e,l,a)=>{let n=t[a];if(n&&n.call){let e=n(r),t=e&&e.props&&e.props.className||/^go/.test(e)&&e;n=t?"."+t:e&&"object"==typeof e?e.props?"":o(e,""):!1===e?"":e;}return e+l+(null==n?"":n)},"");function u(e){let r=this||{},l=e.call?e(r.p):e;return i(l.unshift?l.raw?p(l,[].slice.call(arguments,1),r.p):l.reduce((e,t)=>Object.assign(e,t&&t.call?t(r.p):t),{}):l,t(r.target),r.g,r.o,r.k)}u.bind({g:1});let h=u.bind({k:1});
+
+const toastBarBase = {
+    display: 'flex',
+    'align-items': 'center',
+    background: 'white',
+    color: '#363636',
+    'box-shadow': '0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05)',
+    'max-width': '350px',
+    'pointer-events': 'auto',
+    padding: '8px 10px',
+    'border-radius': '4px',
+    'line-height': '1.3',
+    'will-change': 'transform'
+};
+const entranceAnimation = (direction) => `
+0% {transform: translate3d(0,${direction * -200}%,0) scale(.6); opacity:.5;}
+100% {transform: translate3d(0,0,0) scale(1); opacity:1;}
+`;
+const exitAnimation = (direction) => `
+0% {transform: translate3d(0,0,-1px) scale(1); opacity:1;}
+100% {transform: translate3d(0,${direction * -150}%,-1px) scale(.4); opacity:0;}
+`;
+const messageContainer = {
+    display: 'flex',
+    'align-items': 'center',
+    flex: '1 1 auto',
+    margin: '4px 10px',
+    'white-space': 'pre-line',
+};
+const iconContainer = {
+    'flex-shrink': 0,
+    'min-width': '20px',
+    'min-height': '20px',
+    display: 'flex',
+    'align-items': 'center',
+    'justify-content': 'center',
+    'text-align': 'center',
+};
+const iconCircle = h `from{transform:scale(0)rotate(45deg);opacity:0;}to{transform:scale(1)rotate(45deg);opacity:1;}`;
+const pingCircle = h `75%,100%{transform: scale(2.25);opacity:0;}`;
+const icon = h `to{stroke-dashoffset: 0;}`;
+const infoDot = h `0%{transform:translate3d(0,0,0);opacity:1;}100%{transform:translate3d(0,7px,0)scale(1);opacity:1;}`;
+const rotate = h `from{transform: rotate(0deg);}to{transform: rotate(360deg);}`;
+
+const [defaultOpts, setDefaultOpts] = createSignal(defaultToasterOptions);
+const createToast = (message, type = 'blank', options) => ({
+    ...defaultToastOptions,
+    ...defaultOpts().toastOptions,
+    ...options,
+    type,
+    message,
+    pauseDuration: 0,
+    createdAt: Date.now(),
+    visible: true,
+    id: options.id || generateID(),
+    style: {
+        ...defaultToastOptions.style,
+        ...defaultOpts().toastOptions?.style,
+        ...options.style
+    },
+    duration: options.duration || defaultOpts().toastOptions?.duration || defaultTimeouts[type],
+    position: options.position || defaultOpts().toastOptions?.position || defaultOpts().position || defaultToastOptions.position
+});
+const createToastCreator = (type) => (message, options = {}) => {
+    const existingToast = store.toasts.find(t => t.id === options.id);
+    const toast = createToast(message, type, { ...existingToast, duration: undefined, ...options });
+    dispatch({ type: ActionType.UPSERT_TOAST, toast });
+    return toast.id;
+};
+const toast = (message, opts) => createToastCreator('blank')(message, opts);
+toast.error = createToastCreator('error');
+toast.success = createToastCreator('success');
+toast.loading = createToastCreator('loading');
+toast.custom = createToastCreator('custom');
+toast.dismiss = (toastId) => {
+    dispatch({
+        type: ActionType.DISMISS_TOAST,
+        toastId
+    });
+};
+toast.promise = (promise, msgs, opts) => {
+    const id = toast.loading(msgs.loading, { ...opts });
+    promise
+        .then((p) => {
+        toast.success(resolveValue(msgs.success, p), {
+            id,
+            ...opts,
+        });
+        return p;
+    })
+        .catch((e) => {
+        toast.error(resolveValue(msgs.error, e), {
+            id,
+            ...opts,
+        });
+    });
+    return promise;
+};
+toast.remove = (toastId) => {
+    dispatch({
+        type: ActionType.REMOVE_TOAST,
+        toastId
+    });
+};
+
+const _tmpl$$c = ["<div", " style=\"", "\"", ">", "</div>"];
+const Toaster = props => {
+  createEffect(() => {
+    mergeContainerOptions(props);
+  });
+  createEffect(() => {
+    const timers = createTimers();
+    onCleanup(() => {
+      if (!timers) return;
+      timers.forEach(timer => timer && clearTimeout(timer));
+    });
+  });
+  return ssr(_tmpl$$c, ssrHydrationKey(), ssrStyle({ ...defaultContainerStyle,
+    ...props.containerStyle
+  }), ssrAttribute("class", escape(props.containerClassName, true), false), escape(createComponent(For, {
+    get each() {
+      return store.toasts;
+    },
+
+    children: toast => createComponent(ToastContainer, {
+      toast: toast
+    })
+  })));
+};
+
+const _tmpl$$b = ["<div", " style=\"", "\">", "</div>"],
+      _tmpl$2$3 = ["<div", " style=\"", "\"><!--#-->", "<!--/--><div style=\"", "\" ", ">", "</div></div>"];
+const ToastBar = props => {
+  const [animation, setAnimation] = createSignal('');
+  createEffect(() => {
+    props.toast.visible ? setAnimation(`${h(entranceAnimation(getToastYDirection(props.toast, props.position)))} 0.35s cubic-bezier(.21,1.02,.73,1) forwards`) : setAnimation(`${h(exitAnimation(getToastYDirection(props.toast, props.position)))}  0.4s forwards cubic-bezier(.06,.71,.55,1)`);
+  });
+  return ssr(_tmpl$2$3, ssrHydrationKey() + ssrAttribute("class", escape(props.toast.className, true), false), ssrStyle({ ...toastBarBase,
+    animation: animation(),
+    ...props.toast.style
+  }), escape(createComponent(Switch, {
+    get children() {
+      return [createComponent(Match, {
+        get when() {
+          return props.toast.icon;
+        },
+
+        get children() {
+          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(props.toast.icon));
+        }
+
+      }), createComponent(Match, {
+        get when() {
+          return props.toast.type === 'loading';
+        },
+
+        get children() {
+          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(createComponent(Loader, mergeProps(() => props.toast.iconTheme))));
+        }
+
+      }), createComponent(Match, {
+        get when() {
+          return props.toast.type === 'success';
+        },
+
+        get children() {
+          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(createComponent(Success, mergeProps(() => props.toast.iconTheme))));
+        }
+
+      }), createComponent(Match, {
+        get when() {
+          return props.toast.type === 'error';
+        },
+
+        get children() {
+          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(createComponent(Error$1, mergeProps(() => props.toast.iconTheme))));
+        }
+
+      })];
+    }
+
+  })), ssrStyle(messageContainer), ssrSpread(props.toast.ariaProps, false, true), escape(resolveValue(props.toast.message, props.toast)));
+};
+
+const _tmpl$$a = ["<div", " style=\"", "\"", ">", "</div>"];
+const activeClass = u`z-index: 9999;> * { pointer-events: auto;}`;
+const ToastContainer = props => {
+  const calculatePosition = () => {
+    const position = props.toast.position || defaultToastOptions.position;
+    const offset = getWrapperYAxisOffset(props.toast, position);
+    const positionStyle = getToastWrapperStyles(position, offset);
+    return positionStyle;
+  };
+
+  const [positionStyle, setPositionStyle] = createSignal(calculatePosition());
+  createEffect(() => {
+    const newStyles = calculatePosition();
+    setPositionStyle(newStyles);
+  });
+  onMount(() => {
+  });
+  return ssr(_tmpl$$a, ssrHydrationKey(), ssrStyle(positionStyle()), ssrAttribute("class", props.toast.visible ? escape(activeClass, true) : '', false), props.toast.type === 'custom' ? escape(resolveValue(props.toast.message, props.toast)) : escape(createComponent(ToastBar, {
+    get toast() {
+      return props.toast;
+    },
+
+    get position() {
+      return props.toast.position || defaultToastOptions.position;
+    }
+
+  })));
+};
+
+const _tmpl$$9 = ["<svg", " style=\"", "\" viewBox=\"0 0 32 32\"><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"16\"></circle><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"12\"></circle><path style=\"", "\" fill=\"none\"", " stroke-width=\"4\" stroke-linecap=\"round\" stroke-miterlimit=\"10\" d=\"M9.8,17.2l3.8,3.6c0.1,0.1,0.3,0.1,0.4,0l9.6-9.7\"></path></svg>"];
+const Success = props => {
+  const mainCircle = `${iconCircle} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
+  const secondaryCircle = `${pingCircle} 1s cubic-bezier(0, 0, 0.2, 1) forwards`;
+  const check = `${icon} 0.2s ease-out forwards`;
+  return ssr(_tmpl$$9, ssrHydrationKey(), "overflow:" + "visible", "animation:" + escape(mainCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "100ms") + (";opacity:" + 0), ssrAttribute("fill", escape(props.primary, true) || '#34C759', false), "animation:" + escape(secondaryCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "250ms"), ssrAttribute("fill", escape(props.primary, true) || '#34C759', false), "animation:" + escape(check, true) + (";stroke-dasharray:" + 22) + (";stroke-dashoffset:" + 22) + (";animation-delay:" + "250ms"), ssrAttribute("stroke", escape(props.secondary, true) || '#FCFCFC', false));
+};
+
+const _tmpl$$8 = ["<svg", " style=\"", "\" viewBox=\"0 0 32 32\"><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"16\"></circle><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"12\"></circle><path style=\"", "\" fill=\"none\"", " stroke-width=\"4\" stroke-linecap=\"round\" d=\"M16,7l0,9\"></path><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"2.5\"></circle></svg>"];
+const Error$1 = props => {
+  const mainCircle = `${iconCircle} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
+  const secondaryCircle = `${pingCircle} 1s cubic-bezier(0, 0, 0.2, 1) forwards`;
+  const infoDash = `${icon} 0.1s ease-in forwards`;
+  const infoCircle = `${infoDot} 0.2s ease-out forwards`;
+  return ssr(_tmpl$$8, ssrHydrationKey(), "overflow:" + "visible", "animation:" + escape(mainCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "100ms") + (";opacity:" + 0), ssrAttribute("fill", escape(props.primary, true) || "#FF3B30", false), "animation:" + escape(secondaryCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "320ms"), ssrAttribute("fill", escape(props.primary, true) || "#FF3B30", false), "animation:" + escape(infoDash, true) + (";stroke-dasharray:" + 9) + (";stroke-dashoffset:" + 9) + (";animation-delay:" + "200ms"), ssrAttribute("stroke", escape(props.secondary, true) || "#FFFFFF", false), "animation:" + escape(infoCircle, true) + (";animation-delay:" + "320ms") + (";opacity:" + 0), ssrAttribute("fill", escape(props.secondary, true) || "#FFFFFF", false));
+};
+
+const _tmpl$$7 = ["<svg", " style=\"", "\" viewBox=\"0 0 32 32\"><path fill=\"none\"", " stroke-width=\"4\" stroke-miterlimit=\"10\" d=\"M16,6c3,0,5.7,1.3,7.5,3.4c1.5,1.8,2.5,4,2.5,6.6c0,5.5-4.5,10-10,10S6,21.6,6,16S10.5,6,16,6z\"></path><path style=\"", "\" fill=\"none\"", " stroke-width=\"4\" stroke-linecap=\"round\" stroke-miterlimit=\"10\" d=\"M16,6c3,0,5.7,1.3,7.5,3.4c0.6,0.7,1.1,1.4,1.5,2.2\"></path></svg>"];
+const Loader = props => {
+  const animation = `${rotate} 0.75s linear infinite`;
+  return ssr(_tmpl$$7, ssrHydrationKey(), "overflow:" + "visible", ssrAttribute("stroke", escape(props.primary, true) || "#E5E7EB", false), "animation:" + escape(animation, true) + (";transform-origin:" + "50% 50%"), ssrAttribute("stroke", escape(props.secondary, true) || "#4b5563", false));
+};
+
+toast;
+
 const _tmpl$$6 = ["<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">", "", "</head>"],
-      _tmpl$2$2 = ["<html", " lang=\"en\">", "<body><!--#-->", "<!--/--><!--#-->", "<!--/--></body></html>"];
+      _tmpl$2$2 = ["<html", " lang=\"en\">", "<body><!--#-->", "<!--/--><!--#-->", "<!--/--><!--#-->", "<!--/--></body></html>"];
 function Root() {
   return ssr(_tmpl$2$2, ssrHydrationKey(), NoHydration({
     get children() {
@@ -940,7 +1401,7 @@ function Root() {
       });
     }
 
-  })), escape(createComponent(Scripts, {})));
+  })), escape(createComponent(Scripts, {})), escape(createComponent(Toaster, {})));
 }
 
 const api = [
@@ -1475,9 +1936,9 @@ function Header () {
   return ssr(_tmpl$$4, ssrHydrationKey());
 }
 
-const _tmpl$$3 = ["<div", " class=\"mx-auto max-w-4xl px-4 pt-28\">", "</div>"];
+const _tmpl$$3 = ["<div", " class=\"font-base text-slate-700\"><!--#-->", "<!--/--><div class=\"mx-auto max-w-4xl px-4 pt-28\">", "</div></div>"];
 function Layout (props) {
-  return [createComponent(Header, {}), ssr(_tmpl$$3, ssrHydrationKey(), escape(props.children))];
+  return ssr(_tmpl$$3, ssrHydrationKey(), escape(createComponent(Header, {})), escape(props.children));
 }
 
 function index () {
@@ -1496,7 +1957,7 @@ var index$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 
 const _tmpl$$2 = ["<div", " class=\"text-red-500\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg></div>"],
       _tmpl$2 = ["<div", " class=\"text-green-500\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg></div>"],
-      _tmpl$3 = ["<div", " class=\"mx-auto max-w-md\"><h3 class=\"mb-5 text-center font-semibold\">Your uploaded image</h3><div class=\"flex items-center gap-2 rounded-xl border border-slate-200 p-3 shadow-lg shadow-slate-200\"><div class=\"h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border border-slate-200\"><img", " class=\"aspect-square h-full w-full object-contain\"></div><div class=\"w-full\"><p class=\"font-medium\">You're good to go!</p><p class=\"flex gap-1 text-sm text-slate-400\"><span>", "</span><span class=\"flex-shrink-0\">(<!--#-->", "<!--/-->x<!--#-->", "<!--/-->px, <!--#-->", "<!--/-->)</span></p></div></div><div class=\"my-5 flex items-center justify-center gap-5 text-sm font-medium text-slate-500\"><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->Square</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->PNG or SVG</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->512px or higher</div></div><button class=\"rounded-xl bg-blue-500 px-6 py-2 text-white\">Generate</button></div>"],
+      _tmpl$3 = ["<div", " class=\"mx-auto max-w-md\"><h3 class=\"mb-5 text-center font-semibold\">Your uploaded image</h3><div class=\"flex items-center gap-2 rounded-xl border border-slate-200 p-3 shadow-lg shadow-slate-200\"><div class=\"h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border border-slate-200\"><img", " class=\"aspect-square h-full w-full object-contain\"></div><div class=\"w-full\"><p class=\"font-medium\">You're good to go!</p><p class=\"flex gap-1 text-sm text-slate-400\"><span>", "</span><span class=\"flex-shrink-0\">(<!--#-->", "<!--/-->x<!--#-->", "<!--/-->px, <!--#-->", "<!--/-->)</span></p></div></div><div class=\"my-5 flex items-center justify-center gap-5 text-sm font-medium text-slate-500\"><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->Square</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->PNG or SVG</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->512px or higher</div></div><div class=\"flex items-center justify-center mt-10\"><button class=\"px-6 py-2\">Re-upload Image</button><button class=\"rounded-xl bg-blue-500 px-6 py-2 text-white\">Generate Favicon</button></div></div>"],
       _tmpl$4 = ["<div", " class=\"mx-auto max-w-lg\"><label for=\"file-upload\" class=\"", "\"><div class=\"pointer-events-none flex flex-col items-center justify-center\"><div class=\"", "\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12\"></path></svg></div><p class=\"mt-2 font-medium\">Drag and drop files or browse</p><p class=\"text-sm\">Allowed are PNG, JPG and SVG with max. 2 MB</p></div></label><input id=\"file-upload\" name=\"file\" type=\"file\" class=\"hidden\"", "></div>"],
       _tmpl$5 = ["<div", " class=\"mx-auto mt-4 flex max-w-lg flex-col items-center justify-center text-sm  font-medium text-slate-500\"><p class=\"flex justify-center gap-1\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>For the best result use a square SVG or PNG image with at least 512px</p></div>"];
 
