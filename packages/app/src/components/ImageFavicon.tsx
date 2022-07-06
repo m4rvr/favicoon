@@ -137,9 +137,9 @@ export default function (): JSX.Element {
   }
 
   const generateFavicon = async () => {
-    const data = await fetch('http://localhost:8888/api').then((res) =>
-      res.text()
-    )
+    const data = await fetch(`${import.meta.env.PUBLIC_API_BASE_URL}/foo`, {
+      method: 'POST'
+    }).then((res) => res.json())
     console.log(data)
   }
 

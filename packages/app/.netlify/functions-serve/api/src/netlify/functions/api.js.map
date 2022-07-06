@@ -1,8 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../../../Users/marvinrudolph/GitHub/favee/packages/app/netlify/functions/api.ts"],
-  "sourceRoot": "/var/folders/ch/0g74ssxd3370wg4yq80b2xk00000gn/T/tmp-82866-atdx0ph8N2lo",
-  "sourcesContent": ["import type { Handler } from '@netlify/functions'\n\nexport const handler: Handler = async () => {\n  return {\n    statusCode: 200,\n    body: JSON.stringify({ message: 'Hello World' })\n  }\n}\n\n/* import fastify from 'fastify'\nimport fastifyCors from '@fastify/cors'\nimport fastifyHelmet from '@fastify/helmet'\n\nconst app = fastify({\n  logger: true\n})\n\napp.register(fastifyCors, {\n  origin: 'http://localhost:3000',\n  credentials: true\n})\n\napp.register(fastifyHelmet, {\n  contentSecurityPolicy: false\n})\n\nexport default async (request: any, reply: any) => {\n  await app.ready()\n  app.server.emit('request', request, reply)\n} */\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAEO,IAAM,UAAmB,YAAY;AAC1C,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK,UAAU,EAAE,SAAS,cAAc,CAAC;AAAA,EACjD;AACF;",
-  "names": []
-}
