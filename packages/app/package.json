@@ -14,9 +14,6 @@
     "solid-toast": "^0.1.5"
   },
   "devDependencies": {
-    "@astrojs/solid-js": "^0.2.0",
-    "@babel/core": "^7.18.6",
-    "astro": "1.0.0-beta.63",
     "solid-app-router": "^0.4.1",
     "solid-js": "^1.4.6",
     "solid-meta": "^0.27.5",

@@ -5,7 +5,6 @@ import { Suspense } from 'solid-js'
 import 'uno.css'
 import '@unocss/reset/tailwind.css'
 import './assets/fonts.css'
-import { Toaster } from 'solid-toast'
 
 export default function Root() {
   return (
@@ -23,7 +22,6 @@ export default function Root() {
           </Suspense>
         </ErrorBoundary>
         <Scripts />
-        <Toaster />
       </body>
     </html>
   )
