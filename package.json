@@ -1,0 +1,40 @@
+{
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=16 <17"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json}\"",
+    "lint": "eslint \"**/*.{ts,tsx,js,json,astro}\"",
+    "lint:fix": "pnpm lint --fix",
+    "dev": "turbo run dev",
+    "build": "turbo run build"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config-ts": "^0.25.2",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@types/node": "^18.0.1",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-astro": "^0.14.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-solid": "^0.7.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.1.1",
+    "prettier-plugin-tailwindcss": "^0.1.11",
+    "solid-js": "^1.4.6",
+    "turbo": "^1.3.1",
+    "typescript": "^4.7.4"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "name": "favee",
+      "path": "."
+    },
+    {
+      "name": "app",
+      "path": "packages/app"
+    },
+    {
+      "name": "api",
+      "path": "packages/api"
+    },
+    {
+      "name": "prisma",
+      "path": "packages/prisma"
+    }
+  ]
+}
