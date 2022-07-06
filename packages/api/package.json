@@ -11,15 +11,15 @@
     "@fastify/cors": "^8.0.0",
     "@fastify/helmet": "^9.1.0",
     "@fastify/multipart": "^7.1.0",
-    "@favee/prisma": "workspace:*",
+    "@favee/prisma": "workspace:0.0.0",
     "@pothos/core": "^3.12.1",
     "@pothos/plugin-prisma": "^3.13.1",
     "@prisma/client": "^4.0.0",
     "altair-fastify-plugin": "^4.5.1",
     "fastify": "^4.2.0",
     "graphql": "^16.5.0",
-    "mercurius": "^10.0.0",
-    "puppeteer": "^15.3.0",
+    "mercurius": "^10.1.0",
+    "puppeteer": "^15.3.1",
     "sharp": "^0.30.7"
   },
   "devDependencies": {

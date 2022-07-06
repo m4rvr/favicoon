@@ -61,8 +61,6 @@ function createServer() {
       .toFormat('jpg')
       .toBuffer()
 
-    newFile.ty
-
     const base64 = newFile.toString('base64')
 
     const blobData = `data:image/jpeg;base64,${base64}`

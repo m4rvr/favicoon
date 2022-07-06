@@ -26,7 +26,7 @@ export default function (): JSX.Element {
   const currentButton = () => buttons.find((button) => button.view === view())!
 
   return (
-    <>
+    <div>
       <h1 class="mb-1 text-center text-2xl font-semibold">
         {currentButton().name} Favicon Generator
       </h1>
@@ -64,6 +64,6 @@ export default function (): JSX.Element {
       <div>
         <Dynamic component={views[view()]} />
       </div>
-    </>
+    </div>
   )
 }

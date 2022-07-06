@@ -21,9 +21,8 @@ const formatName = (name: string) => {
   const parts = name.split('.')
   const extension = parts.pop() || ''
   const fileName = parts.join('.')
-  console.log(fileName.length)
   const formattedName =
-    fileName.length >= 22 ? `${fileName.slice(0, 24)}...` : fileName
+    fileName.length > 20 ? `${fileName.slice(0, 24)}...` : fileName
   return `${formattedName}.${extension.toLowerCase()}`
 }
 
@@ -75,10 +74,12 @@ export default function (): JSX.Element {
 
   const processFile = (file: File) => {
     if (!allowedFileTypes.includes(file.type)) {
+      // toast('File type not allowed.')
       throw new Error('File type not allowed.')
     }
 
     if (bytesToMegaBytes(file.size) > 2) {
+      // toast('File is too large.')
       throw new Error('File is too large.')
     }
 
