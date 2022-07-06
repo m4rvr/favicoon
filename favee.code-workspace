@@ -11,10 +11,6 @@
     {
       "name": "api",
       "path": "packages/api"
-    },
-    {
-      "name": "prisma",
-      "path": "packages/prisma"
     }
   ]
 }

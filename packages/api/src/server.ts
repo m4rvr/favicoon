@@ -1,13 +1,8 @@
 import fastify from 'fastify'
-import type { FastifyReply, FastifyRequest } from 'fastify'
-import mercurius from 'mercurius'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyCors from '@fastify/cors'
-import altairFastify from 'altair-fastify-plugin'
 import fastifyMultipart from '@fastify/multipart'
 import sharp from 'sharp'
-import type { Context } from './context.js'
-import { schema } from './schema/index.js'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -26,25 +21,6 @@ function createServer() {
   })
 
   server.register(fastifyMultipart)
-
-  server.register(mercurius, {
-    schema,
-    path: '/graphql',
-    graphiql: false,
-    ide: false,
-    context: (request: FastifyRequest, reply: FastifyReply): Context => ({
-      request,
-      reply
-    })
-  })
-
-  if (isDevelopment) {
-    server.register(altairFastify, {
-      path: '/altair',
-      baseURL: '/altair/',
-      endpointURL: '/graphql'
-    })
-  }
 
   server.get('/health', async (_request, reply) => {
     reply.send('ok')
