@@ -15,7 +15,6 @@ importers:
       eslint-plugin-prettier: ^4.2.1
       eslint-plugin-solid: ^0.7.0
       husky: ^8.0.1
-      pnpm: ^7.5.0
       prettier: ^2.7.1
       prettier-plugin-astro: ^0.1.1
       prettier-plugin-tailwindcss: ^0.1.11
@@ -34,7 +33,6 @@ importers:
       eslint-plugin-prettier: 4.2.1_7uxdfn2xinezdgvmbammh6ev5i
       eslint-plugin-solid: 0.7.0_4x5o4skxv6sl53vpwefgt23khm
       husky: 8.0.1
-      pnpm: 7.5.0
       prettier: 2.7.1
       prettier-plugin-astro: 0.1.1
       prettier-plugin-tailwindcss: 0.1.11_prettier@2.7.1
@@ -6111,12 +6109,6 @@ packages:
     resolution: {integrity: sha512-NCrCHhWmnQklfH4MtJMRjZ2a8c80qXeMlQMv2uVp9ISJMTt562SbGd6n2oq0PaPgKm7Z6pL9E2UlLIhC+SHL3w==}
     engines: {node: '>=4.0.0'}
     dev: false
-
-  /pnpm/7.5.0:
-    resolution: {integrity: sha512-sb9wJNyx/d8l3Gze2jI1y8BGNbb/ga+JT3SrGNiH+C5KbtZ4wmgePBWGjaiGugcpT9+vQ5MO//+QlVWhMCpedQ==}
-    engines: {node: '>=14.6'}
-    hasBin: true
-    dev: true
 
   /polka/1.0.0-next.22:
     resolution: {integrity: sha512-a7tsZy5gFbJr0aUltZS97xCkbPglXuD67AMvTyZX7BTDBH384FWf0ZQF6rPvdutSxnO1vUlXM2zSLf5tCKk5RA==}
