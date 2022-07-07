@@ -1,0 +1,30 @@
+{
+  "/": [
+    {
+      "type": "script",
+      "href": "/assets/index.0cb57d6f.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/entry-client.4598e657.js"
+    }
+  ],
+  "*": [
+    {
+      "type": "script",
+      "href": "/assets/entry-client.4598e657.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/ImageFavicon.142dca98.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/EmojiFavicon.1687de41.js"
+    },
+    {
+      "type": "script",
+      "href": "/assets/TextFavicon.10af52b7.js"
+    }
+  ]
+}

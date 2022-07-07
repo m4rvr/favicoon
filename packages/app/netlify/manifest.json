@@ -1,0 +1,61 @@
+{
+  "src/entry-client.tsx": {
+    "file": "assets/entry-client.4598e657.js",
+    "src": "src/entry-client.tsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "src/routes/index.tsx"
+    ],
+    "css": [
+      "assets/entry-client.75b8b882.css"
+    ],
+    "assets": [
+      "assets/inter-v11-latin-regular.d56fec21.woff2",
+      "assets/inter-v11-latin-regular.9ec803ce.woff",
+      "assets/inter-v11-latin-500.aa5a5a7a.woff2",
+      "assets/inter-v11-latin-500.c8015ce3.woff",
+      "assets/inter-v11-latin-600.ff769fa6.woff2",
+      "assets/inter-v11-latin-600.d4339a04.woff"
+    ]
+  },
+  "src/routes/index.tsx": {
+    "file": "assets/index.0cb57d6f.js",
+    "src": "src/routes/index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx"
+    ],
+    "dynamicImports": [
+      "src/components/ImageFavicon.tsx",
+      "src/components/EmojiFavicon.tsx",
+      "src/components/TextFavicon.tsx"
+    ]
+  },
+  "src/components/ImageFavicon.tsx": {
+    "file": "assets/ImageFavicon.142dca98.js",
+    "src": "src/components/ImageFavicon.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx"
+    ],
+    "assets": [
+      "assets/chrome-dark.cc208366.png"
+    ]
+  },
+  "src/components/EmojiFavicon.tsx": {
+    "file": "assets/EmojiFavicon.1687de41.js",
+    "src": "src/components/EmojiFavicon.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  },
+  "src/components/TextFavicon.tsx": {
+    "file": "assets/TextFavicon.10af52b7.js",
+    "src": "src/components/TextFavicon.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/entry-client.tsx"
+    ]
+  }
+}

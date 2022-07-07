@@ -11,11 +11,15 @@
     "@fastify/cors": "^8.0.0",
     "@fastify/helmet": "^9.1.0",
     "@fastify/multipart": "^7.1.0",
+    "@trpc/server": "^9.25.3",
+    "adm-zip": "^0.5.9",
     "fastify": "^4.2.0",
+    "png-to-ico": "^2.1.4",
     "puppeteer": "^15.3.1",
     "sharp": "^0.30.7"
   },
   "devDependencies": {
+    "@types/adm-zip": "^0.5.0",
     "@types/sharp": "^0.30.4",
     "dotenv": "^16.0.1",
     "tsup": "^6.1.3",

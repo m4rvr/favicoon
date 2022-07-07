@@ -1,6 +1,7 @@
-import { renderToStringAsync, isServer, createComponent, Assets, ssr, ssrHydrationKey, ssrAttribute, escape, HydrationScript, NoHydration, ssrStyle, mergeProps, ssrSpread, Dynamic } from 'solid-js/web';
-import { createContext, createSignal, onMount, onCleanup, runWithOwner, createMemo, getOwner, useContext, createComponent as createComponent$1, useTransition, on, untrack, resetErrorBoundaries, createRenderEffect, children, createRoot, Show, lazy, ErrorBoundary as ErrorBoundary$1, createEffect, For, Switch, Match, Suspense, sharedConfig } from 'solid-js';
-import { createStore, produce } from 'solid-js/store';
+import { renderToStringAsync, isServer, createComponent, Assets, ssr, ssrHydrationKey, ssrAttribute, escape, HydrationScript, NoHydration, Dynamic } from 'solid-js/web';
+import { createContext, createSignal, onMount, onCleanup, runWithOwner, createMemo, getOwner, useContext, createComponent as createComponent$1, useTransition, on, untrack, resetErrorBoundaries, createRenderEffect, children, createRoot, Show, lazy, ErrorBoundary as ErrorBoundary$1, Suspense, sharedConfig, For, Switch, Match } from 'solid-js';
+import 'jszip';
+import 'magic-bytes.js';
 
 function renderAsync(fn, options) {
   return () => async (context) => {
@@ -811,8 +812,8 @@ function StartProvider(props) {
   });
 }
 
-const _tmpl$$f = ["<link", " rel=\"stylesheet\"", ">"],
-      _tmpl$2$4 = ["<link", " rel=\"modulepreload\"", ">"];
+const _tmpl$$9 = ["<link", " rel=\"stylesheet\"", ">"],
+      _tmpl$2$3 = ["<link", " rel=\"modulepreload\"", ">"];
 
 function getAssetsFromManifest(manifest, routerContext) {
   const match = routerContext.matches.reduce((memo, m) => {
@@ -820,7 +821,7 @@ function getAssetsFromManifest(manifest, routerContext) {
     return memo;
   }, []);
   const links = match.reduce((r, src) => {
-    r[src.href] = src.type === "style" ? ssr(_tmpl$$f, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false)) : ssr(_tmpl$2$4, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false));
+    r[src.href] = src.type === "style" ? ssr(_tmpl$$9, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false)) : ssr(_tmpl$2$3, ssrHydrationKey(), ssrAttribute("href", escape(src.href, true), false));
     return r;
   }, {});
   return Object.values(links);
@@ -868,12 +869,12 @@ const routes = [{
 
 const Routes = useRoutes(routes);
 
-const _tmpl$$e = ["<script", " type=\"module\" async", "></script>"];
+const _tmpl$$8 = ["<script", " type=\"module\" async", "></script>"];
 
 function getFromManifest(manifest) {
   const match = manifest["*"];
   const entry = match.find(src => src.type === "script");
-  return ssr(_tmpl$$e, ssrHydrationKey(), ssrAttribute("src", escape(entry.href, true), false));
+  return ssr(_tmpl$$8, ssrHydrationKey(), ssrAttribute("src", escape(entry.href, true), false));
 }
 
 function Scripts() {
@@ -886,7 +887,7 @@ function Scripts() {
   })];
 }
 
-const _tmpl$$d = ["<div", " style=\"", "\"><div style=\"", "\"><p style=\"", "\" id=\"error-message\">", "</p><button id=\"reset-errors\" style=\"", "\">Clear errors and retry</button><pre style=\"", "\">", "</pre></div></div>"];
+const _tmpl$$7 = ["<div", " style=\"", "\"><div style=\"", "\"><p style=\"", "\" id=\"error-message\">", "</p><button id=\"reset-errors\" style=\"", "\">Clear errors and retry</button><pre style=\"", "\">", "</pre></div></div>"];
 function ErrorBoundary(props) {
   return createComponent(ErrorBoundary$1, {
     fallback: e => {
@@ -916,7 +917,7 @@ function ErrorBoundary(props) {
 }
 
 function ErrorMessage(props) {
-  return ssr(_tmpl$$d, ssrHydrationKey(), "padding:" + "16px", "background-color:" + "rgba(252, 165, 165)" + (";color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";overflow:" + "scroll") + (";padding:" + "16px") + (";margin-bottom:" + "8px"), "font-weight:" + "bold", escape(props.error.message), "color:" + "rgba(252, 165, 165)" + (";background-color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";padding:" + "4px 8px"), "margin-top:" + "8px" + (";width:" + "100%"), escape(props.error.stack));
+  return ssr(_tmpl$$7, ssrHydrationKey(), "padding:" + "16px", "background-color:" + "rgba(252, 165, 165)" + (";color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";overflow:" + "scroll") + (";padding:" + "16px") + (";margin-bottom:" + "8px"), "font-weight:" + "bold", escape(props.error.message), "color:" + "rgba(252, 165, 165)" + (";background-color:" + "rgb(153, 27, 27)") + (";border-radius:" + "5px") + (";padding:" + "4px 8px"), "margin-top:" + "8px" + (";width:" + "100%"), escape(props.error.stack));
 }
 
 var __uno = /* #__PURE__ */ (() => "#--unocss--{layer:__ALL__}")();
@@ -925,466 +926,8 @@ var tailwind = /* #__PURE__ */ (() => "/*\n1. Prevent padding and border from af
 
 var fonts = /* #__PURE__ */ (() => "/* inter-regular - latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 400;\n  src: url('./fonts/inter-v11-latin-regular.eot');\n  /* IE9 Compat Modes */\n  src: local(''),\n    url('./fonts/inter-v11-latin-regular.eot?#iefix') format('embedded-opentype'),\n    \n    url('/assets/inter-v11-latin-regular.d56fec21.woff2') format('woff2'),\n    \n    url('/assets/inter-v11-latin-regular.9ec803ce.woff') format('woff'),\n    \n    url('./fonts/inter-v11-latin-regular.ttf') format('truetype'),\n    \n    url('./fonts/inter-v11-latin-regular.svg#Inter') format('svg');\n  /* Legacy iOS */\n}\n\n/* inter-500 - latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 500;\n  src: url('./fonts/inter-v11-latin-500.eot');\n  /* IE9 Compat Modes */\n  src: local(''),\n    url('./fonts/inter-v11-latin-500.eot?#iefix') format('embedded-opentype'),\n    \n    url('/assets/inter-v11-latin-500.aa5a5a7a.woff2') format('woff2'),\n    \n    url('/assets/inter-v11-latin-500.c8015ce3.woff') format('woff'),\n    \n    url('./fonts/inter-v11-latin-500.ttf') format('truetype'),\n    \n    url('./fonts/inter-v11-latin-500.svg#Inter') format('svg');\n  /* Legacy iOS */\n}\n\n/* inter-600 - latin */\n@font-face {\n  font-family: 'Inter';\n  font-style: normal;\n  font-weight: 600;\n  src: url('./fonts/inter-v11-latin-600.eot');\n  /* IE9 Compat Modes */\n  src: local(''),\n    url('./fonts/inter-v11-latin-600.eot?#iefix') format('embedded-opentype'),\n    \n    url('/assets/inter-v11-latin-600.ff769fa6.woff2') format('woff2'),\n    \n    url('/assets/inter-v11-latin-600.d4339a04.woff') format('woff'),\n    \n    url('./fonts/inter-v11-latin-600.ttf') format('truetype'),\n    \n    url('./fonts/inter-v11-latin-600.svg#Inter') format('svg');\n  /* Legacy iOS */\n}")();
 
-const isFunction = (valOrFunction) => typeof valOrFunction === 'function';
-const resolveValue = (valOrFunction, arg) => (isFunction(valOrFunction) ? valOrFunction(arg) : valOrFunction);
-
-var ActionType;
-(function (ActionType) {
-    ActionType[ActionType["ADD_TOAST"] = 0] = "ADD_TOAST";
-    ActionType[ActionType["UPDATE_TOAST"] = 1] = "UPDATE_TOAST";
-    ActionType[ActionType["UPSERT_TOAST"] = 2] = "UPSERT_TOAST";
-    ActionType[ActionType["DISMISS_TOAST"] = 3] = "DISMISS_TOAST";
-    ActionType[ActionType["REMOVE_TOAST"] = 4] = "REMOVE_TOAST";
-    ActionType[ActionType["START_PAUSE"] = 5] = "START_PAUSE";
-    ActionType[ActionType["END_PAUSE"] = 6] = "END_PAUSE";
-})(ActionType || (ActionType = {}));
-
-const [store, setStore] = createStore({
-    toasts: [],
-    pausedAt: undefined,
-});
-const createTimers = () => {
-    const { pausedAt, toasts } = store;
-    if (pausedAt)
-        return;
-    const now = Date.now();
-    const timers = toasts.map(toast => {
-        if (toast.duration === Infinity)
-            return;
-        const durationLeft = (toast.duration || 0) + toast.pauseDuration - (now - toast.createdAt);
-        if (durationLeft <= 0) {
-            if (toast.visible) {
-                dispatch({
-                    type: ActionType.DISMISS_TOAST,
-                    toastId: toast.id
-                });
-            }
-            return;
-        }
-        return setTimeout(() => {
-            dispatch({
-                type: ActionType.DISMISS_TOAST,
-                toastId: toast.id
-            });
-        }, durationLeft);
-    });
-    return timers;
-};
-const removalQueue = new Map();
-const scheduleRemoval = (toastId, unmountDelay) => {
-    if (removalQueue.has(toastId))
-        return;
-    const timeout = setTimeout(() => {
-        removalQueue.delete(toastId);
-        dispatch({
-            type: ActionType.REMOVE_TOAST,
-            toastId
-        });
-    }, unmountDelay);
-    removalQueue.set(toastId, timeout);
-};
-const unscheduleRemoval = (toastId) => {
-    const timeout = removalQueue.get(toastId);
-    removalQueue.delete(toastId);
-    if (timeout)
-        clearTimeout(timeout);
-};
-const dispatch = (action) => {
-    switch (action.type) {
-        case ActionType.ADD_TOAST:
-            setStore('toasts', t => {
-                const toasts = t;
-                return [action.toast, ...toasts];
-            });
-            break;
-        case ActionType.DISMISS_TOAST:
-            const { toastId } = action;
-            const toasts = store.toasts;
-            if (toastId) {
-                const toastToRemove = toasts.find(t => t.id === toastId);
-                if (toastToRemove)
-                    scheduleRemoval(toastId, toastToRemove.unmountDelay);
-            }
-            else {
-                toasts.forEach(t => {
-                    scheduleRemoval(t.id, t.unmountDelay);
-                });
-            }
-            setStore('toasts', t => t.id === toastId, produce(t => t.visible = false));
-            break;
-        case ActionType.REMOVE_TOAST:
-            if (!action.toastId) {
-                setStore('toasts', []);
-                break;
-            }
-            setStore('toasts', t => {
-                const toasts = t;
-                return toasts.filter(t => t.id !== action.toastId);
-            });
-            break;
-        case ActionType.UPDATE_TOAST:
-            if (action.toast.id) {
-                unscheduleRemoval(action.toast.id);
-            }
-            setStore('toasts', t => t.id === action.toast.id, t => {
-                const toast = t;
-                return {
-                    ...toast,
-                    ...action.toast,
-                };
-            });
-            break;
-        case ActionType.UPSERT_TOAST:
-            store.toasts.find(t => t.id === action.toast.id) ?
-                dispatch({ type: ActionType.UPDATE_TOAST, toast: action.toast }) :
-                dispatch({ type: ActionType.ADD_TOAST, toast: action.toast });
-            break;
-        case ActionType.START_PAUSE:
-            setStore('pausedAt', Date.now());
-            break;
-        case ActionType.END_PAUSE:
-            const pauseInterval = action.time - (store.pausedAt || 0);
-            setStore(produce(s => {
-                s.pausedAt = undefined;
-                s.toasts.forEach(t => {
-                    t.pauseDuration += pauseInterval;
-                });
-            }));
-            break;
-    }
-};
-
-const defaultTimeouts = {
-    blank: 4000,
-    error: 4000,
-    success: 2000,
-    loading: Infinity,
-    custom: 4000,
-};
-const defaultToastOptions = {
-    id: '',
-    icon: '',
-    unmountDelay: 500,
-    duration: 3000,
-    ariaProps: {
-        role: 'status',
-        'aria-live': 'polite',
-    },
-    className: '',
-    style: {},
-    position: 'top-right',
-    iconTheme: {}
-};
-const defaultToasterOptions = {
-    position: 'top-right',
-    toastOptions: defaultToastOptions,
-    gutter: 8,
-    containerStyle: {},
-    containerClassName: ''
-};
-const defaultContainerPadding = '16px';
-const defaultContainerStyle = {
-    position: 'fixed',
-    'z-index': 9999,
-    top: defaultContainerPadding,
-    bottom: defaultContainerPadding,
-    left: defaultContainerPadding,
-    right: defaultContainerPadding,
-    "pointer-events": 'none'
-};
-
-const generateID = (() => {
-    let count = 0;
-    return () => String(++count);
-})();
-const mergeContainerOptions = (props) => {
-    setDefaultOpts(s => ({
-        containerClassName: props.containerClassName ?? s.containerClassName,
-        containerStyle: props.containerStyle ?? s.containerStyle,
-        gutter: props.gutter ?? s.gutter,
-        position: props.position ?? s.position,
-        toastOptions: {
-            ...props.toastOptions,
-        }
-    }));
-};
-const getToastWrapperStyles = (position, offset) => {
-    const top = position.includes('top');
-    const verticalStyle = top ? { top: 0 } : { bottom: 0 };
-    const horizontalStyle = position.includes('center')
-        ? { 'justify-content': 'center' }
-        : position.includes('right')
-            ? { 'justify-content': 'flex-end' }
-            : {};
-    return {
-        left: 0,
-        right: 0,
-        display: 'flex',
-        position: 'absolute',
-        transition: `all 230ms cubic-bezier(.21,1.02,.73,1)`,
-        transform: `translateY(${offset * (top ? 1 : -1)}px)`,
-        ...verticalStyle,
-        ...horizontalStyle,
-    };
-};
-const getWrapperYAxisOffset = (toast, position) => {
-    const { toasts } = store;
-    const gutter = defaultOpts().gutter || defaultToasterOptions.gutter || 8;
-    const relevantToasts = toasts.filter(t => ((t.position || position) === position && t.height));
-    const toastIndex = relevantToasts.findIndex((t) => t.id === toast.id);
-    const toastsBefore = relevantToasts.filter((toast, i) => i < toastIndex && toast.visible).length;
-    const offset = relevantToasts
-        .slice(0, toastsBefore)
-        .reduce((acc, t) => acc + gutter + (t.height || 0), 0);
-    return offset;
-};
-const getToastYDirection = (toast, defaultPos) => {
-    const position = toast.position || defaultPos;
-    const top = position.includes('top');
-    return top ? 1 : -1;
-};
-
-let e={data:""},t=t=>"object"==typeof window?((t?t.querySelector("#_goober"):window._goober)||Object.assign((t||document.head).appendChild(document.createElement("style")),{innerHTML:" ",id:"_goober"})).firstChild:t||e,l=/(?:([\u0080-\uFFFF\w-%@]+) *:? *([^{;]+?);|([^;}{]*?) *{)|(}\s*)/g,a=/\/\*[^]*?\*\/|  +/g,n=/\n+/g,o=(e,t)=>{let r="",l="",a="";for(let n in e){let c=e[n];"@"==n[0]?"i"==n[1]?r=n+" "+c+";":l+="f"==n[1]?o(c,n):n+"{"+o(c,"k"==n[1]?"":t)+"}":"object"==typeof c?l+=o(c,t?t.replace(/([^,])+/g,e=>n.replace(/(^:.*)|([^,])+/g,t=>/&/.test(t)?t.replace(/&/g,e):e?e+" "+t:t)):n):null!=c&&(n=/^--/.test(n)?n:n.replace(/[A-Z]/g,"-$&").toLowerCase(),a+=o.p?o.p(n,c):n+":"+c+";");}return r+(t&&a?t+"{"+a+"}":a)+l},c={},s=e=>{if("object"==typeof e){let t="";for(let r in e)t+=r+s(e[r]);return t}return e},i=(e,t,r,i,p)=>{let u=s(e),d=c[u]||(c[u]=(e=>{let t=0,r=11;for(;t<e.length;)r=101*r+e.charCodeAt(t++)>>>0;return "go"+r})(u));if(!c[d]){let t=u!==e?e:(e=>{let t,r,o=[{}];for(;t=l.exec(e.replace(a,""));)t[4]?o.shift():t[3]?(r=t[3].replace(n," ").trim(),o.unshift(o[0][r]=o[0][r]||{})):o[0][t[1]]=t[2].replace(n," ").trim();return o[0]})(e);c[d]=o(p?{["@keyframes "+d]:t}:t,r?"":"."+d);}return ((e,t,r)=>{-1==t.data.indexOf(e)&&(t.data=r?e+t.data:t.data+e);})(c[d],t,i),d},p=(e,t,r)=>e.reduce((e,l,a)=>{let n=t[a];if(n&&n.call){let e=n(r),t=e&&e.props&&e.props.className||/^go/.test(e)&&e;n=t?"."+t:e&&"object"==typeof e?e.props?"":o(e,""):!1===e?"":e;}return e+l+(null==n?"":n)},"");function u(e){let r=this||{},l=e.call?e(r.p):e;return i(l.unshift?l.raw?p(l,[].slice.call(arguments,1),r.p):l.reduce((e,t)=>Object.assign(e,t&&t.call?t(r.p):t),{}):l,t(r.target),r.g,r.o,r.k)}u.bind({g:1});let h=u.bind({k:1});
-
-const toastBarBase = {
-    display: 'flex',
-    'align-items': 'center',
-    background: 'white',
-    color: '#363636',
-    'box-shadow': '0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05)',
-    'max-width': '350px',
-    'pointer-events': 'auto',
-    padding: '8px 10px',
-    'border-radius': '4px',
-    'line-height': '1.3',
-    'will-change': 'transform'
-};
-const entranceAnimation = (direction) => `
-0% {transform: translate3d(0,${direction * -200}%,0) scale(.6); opacity:.5;}
-100% {transform: translate3d(0,0,0) scale(1); opacity:1;}
-`;
-const exitAnimation = (direction) => `
-0% {transform: translate3d(0,0,-1px) scale(1); opacity:1;}
-100% {transform: translate3d(0,${direction * -150}%,-1px) scale(.4); opacity:0;}
-`;
-const messageContainer = {
-    display: 'flex',
-    'align-items': 'center',
-    flex: '1 1 auto',
-    margin: '4px 10px',
-    'white-space': 'pre-line',
-};
-const iconContainer = {
-    'flex-shrink': 0,
-    'min-width': '20px',
-    'min-height': '20px',
-    display: 'flex',
-    'align-items': 'center',
-    'justify-content': 'center',
-    'text-align': 'center',
-};
-const iconCircle = h `from{transform:scale(0)rotate(45deg);opacity:0;}to{transform:scale(1)rotate(45deg);opacity:1;}`;
-const pingCircle = h `75%,100%{transform: scale(2.25);opacity:0;}`;
-const icon = h `to{stroke-dashoffset: 0;}`;
-const infoDot = h `0%{transform:translate3d(0,0,0);opacity:1;}100%{transform:translate3d(0,7px,0)scale(1);opacity:1;}`;
-const rotate = h `from{transform: rotate(0deg);}to{transform: rotate(360deg);}`;
-
-const [defaultOpts, setDefaultOpts] = createSignal(defaultToasterOptions);
-const createToast = (message, type = 'blank', options) => ({
-    ...defaultToastOptions,
-    ...defaultOpts().toastOptions,
-    ...options,
-    type,
-    message,
-    pauseDuration: 0,
-    createdAt: Date.now(),
-    visible: true,
-    id: options.id || generateID(),
-    style: {
-        ...defaultToastOptions.style,
-        ...defaultOpts().toastOptions?.style,
-        ...options.style
-    },
-    duration: options.duration || defaultOpts().toastOptions?.duration || defaultTimeouts[type],
-    position: options.position || defaultOpts().toastOptions?.position || defaultOpts().position || defaultToastOptions.position
-});
-const createToastCreator = (type) => (message, options = {}) => {
-    const existingToast = store.toasts.find(t => t.id === options.id);
-    const toast = createToast(message, type, { ...existingToast, duration: undefined, ...options });
-    dispatch({ type: ActionType.UPSERT_TOAST, toast });
-    return toast.id;
-};
-const toast = (message, opts) => createToastCreator('blank')(message, opts);
-toast.error = createToastCreator('error');
-toast.success = createToastCreator('success');
-toast.loading = createToastCreator('loading');
-toast.custom = createToastCreator('custom');
-toast.dismiss = (toastId) => {
-    dispatch({
-        type: ActionType.DISMISS_TOAST,
-        toastId
-    });
-};
-toast.promise = (promise, msgs, opts) => {
-    const id = toast.loading(msgs.loading, { ...opts });
-    promise
-        .then((p) => {
-        toast.success(resolveValue(msgs.success, p), {
-            id,
-            ...opts,
-        });
-        return p;
-    })
-        .catch((e) => {
-        toast.error(resolveValue(msgs.error, e), {
-            id,
-            ...opts,
-        });
-    });
-    return promise;
-};
-toast.remove = (toastId) => {
-    dispatch({
-        type: ActionType.REMOVE_TOAST,
-        toastId
-    });
-};
-
-const _tmpl$$c = ["<div", " style=\"", "\"", ">", "</div>"];
-const Toaster = props => {
-  createEffect(() => {
-    mergeContainerOptions(props);
-  });
-  createEffect(() => {
-    const timers = createTimers();
-    onCleanup(() => {
-      if (!timers) return;
-      timers.forEach(timer => timer && clearTimeout(timer));
-    });
-  });
-  return ssr(_tmpl$$c, ssrHydrationKey(), ssrStyle({ ...defaultContainerStyle,
-    ...props.containerStyle
-  }), ssrAttribute("class", escape(props.containerClassName, true), false), escape(createComponent(For, {
-    get each() {
-      return store.toasts;
-    },
-
-    children: toast => createComponent(ToastContainer, {
-      toast: toast
-    })
-  })));
-};
-
-const _tmpl$$b = ["<div", " style=\"", "\">", "</div>"],
-      _tmpl$2$3 = ["<div", " style=\"", "\"><!--#-->", "<!--/--><div style=\"", "\" ", ">", "</div></div>"];
-const ToastBar = props => {
-  const [animation, setAnimation] = createSignal('');
-  createEffect(() => {
-    props.toast.visible ? setAnimation(`${h(entranceAnimation(getToastYDirection(props.toast, props.position)))} 0.35s cubic-bezier(.21,1.02,.73,1) forwards`) : setAnimation(`${h(exitAnimation(getToastYDirection(props.toast, props.position)))}  0.4s forwards cubic-bezier(.06,.71,.55,1)`);
-  });
-  return ssr(_tmpl$2$3, ssrHydrationKey() + ssrAttribute("class", escape(props.toast.className, true), false), ssrStyle({ ...toastBarBase,
-    animation: animation(),
-    ...props.toast.style
-  }), escape(createComponent(Switch, {
-    get children() {
-      return [createComponent(Match, {
-        get when() {
-          return props.toast.icon;
-        },
-
-        get children() {
-          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(props.toast.icon));
-        }
-
-      }), createComponent(Match, {
-        get when() {
-          return props.toast.type === 'loading';
-        },
-
-        get children() {
-          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(createComponent(Loader, mergeProps(() => props.toast.iconTheme))));
-        }
-
-      }), createComponent(Match, {
-        get when() {
-          return props.toast.type === 'success';
-        },
-
-        get children() {
-          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(createComponent(Success, mergeProps(() => props.toast.iconTheme))));
-        }
-
-      }), createComponent(Match, {
-        get when() {
-          return props.toast.type === 'error';
-        },
-
-        get children() {
-          return ssr(_tmpl$$b, ssrHydrationKey(), ssrStyle(iconContainer), escape(createComponent(Error$1, mergeProps(() => props.toast.iconTheme))));
-        }
-
-      })];
-    }
-
-  })), ssrStyle(messageContainer), ssrSpread(props.toast.ariaProps, false, true), escape(resolveValue(props.toast.message, props.toast)));
-};
-
-const _tmpl$$a = ["<div", " style=\"", "\"", ">", "</div>"];
-const activeClass = u`z-index: 9999;> * { pointer-events: auto;}`;
-const ToastContainer = props => {
-  const calculatePosition = () => {
-    const position = props.toast.position || defaultToastOptions.position;
-    const offset = getWrapperYAxisOffset(props.toast, position);
-    const positionStyle = getToastWrapperStyles(position, offset);
-    return positionStyle;
-  };
-
-  const [positionStyle, setPositionStyle] = createSignal(calculatePosition());
-  createEffect(() => {
-    const newStyles = calculatePosition();
-    setPositionStyle(newStyles);
-  });
-  onMount(() => {
-  });
-  return ssr(_tmpl$$a, ssrHydrationKey(), ssrStyle(positionStyle()), ssrAttribute("class", props.toast.visible ? escape(activeClass, true) : '', false), props.toast.type === 'custom' ? escape(resolveValue(props.toast.message, props.toast)) : escape(createComponent(ToastBar, {
-    get toast() {
-      return props.toast;
-    },
-
-    get position() {
-      return props.toast.position || defaultToastOptions.position;
-    }
-
-  })));
-};
-
-const _tmpl$$9 = ["<svg", " style=\"", "\" viewBox=\"0 0 32 32\"><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"16\"></circle><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"12\"></circle><path style=\"", "\" fill=\"none\"", " stroke-width=\"4\" stroke-linecap=\"round\" stroke-miterlimit=\"10\" d=\"M9.8,17.2l3.8,3.6c0.1,0.1,0.3,0.1,0.4,0l9.6-9.7\"></path></svg>"];
-const Success = props => {
-  const mainCircle = `${iconCircle} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
-  const secondaryCircle = `${pingCircle} 1s cubic-bezier(0, 0, 0.2, 1) forwards`;
-  const check = `${icon} 0.2s ease-out forwards`;
-  return ssr(_tmpl$$9, ssrHydrationKey(), "overflow:" + "visible", "animation:" + escape(mainCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "100ms") + (";opacity:" + 0), ssrAttribute("fill", escape(props.primary, true) || '#34C759', false), "animation:" + escape(secondaryCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "250ms"), ssrAttribute("fill", escape(props.primary, true) || '#34C759', false), "animation:" + escape(check, true) + (";stroke-dasharray:" + 22) + (";stroke-dashoffset:" + 22) + (";animation-delay:" + "250ms"), ssrAttribute("stroke", escape(props.secondary, true) || '#FCFCFC', false));
-};
-
-const _tmpl$$8 = ["<svg", " style=\"", "\" viewBox=\"0 0 32 32\"><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"16\"></circle><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"12\"></circle><path style=\"", "\" fill=\"none\"", " stroke-width=\"4\" stroke-linecap=\"round\" d=\"M16,7l0,9\"></path><circle style=\"", "\"", " cx=\"16\" cy=\"16\" r=\"2.5\"></circle></svg>"];
-const Error$1 = props => {
-  const mainCircle = `${iconCircle} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
-  const secondaryCircle = `${pingCircle} 1s cubic-bezier(0, 0, 0.2, 1) forwards`;
-  const infoDash = `${icon} 0.1s ease-in forwards`;
-  const infoCircle = `${infoDot} 0.2s ease-out forwards`;
-  return ssr(_tmpl$$8, ssrHydrationKey(), "overflow:" + "visible", "animation:" + escape(mainCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "100ms") + (";opacity:" + 0), ssrAttribute("fill", escape(props.primary, true) || "#FF3B30", false), "animation:" + escape(secondaryCircle, true) + (";transform-origin:" + "50% 50%") + (";animation-delay:" + "320ms"), ssrAttribute("fill", escape(props.primary, true) || "#FF3B30", false), "animation:" + escape(infoDash, true) + (";stroke-dasharray:" + 9) + (";stroke-dashoffset:" + 9) + (";animation-delay:" + "200ms"), ssrAttribute("stroke", escape(props.secondary, true) || "#FFFFFF", false), "animation:" + escape(infoCircle, true) + (";animation-delay:" + "320ms") + (";opacity:" + 0), ssrAttribute("fill", escape(props.secondary, true) || "#FFFFFF", false));
-};
-
-const _tmpl$$7 = ["<svg", " style=\"", "\" viewBox=\"0 0 32 32\"><path fill=\"none\"", " stroke-width=\"4\" stroke-miterlimit=\"10\" d=\"M16,6c3,0,5.7,1.3,7.5,3.4c1.5,1.8,2.5,4,2.5,6.6c0,5.5-4.5,10-10,10S6,21.6,6,16S10.5,6,16,6z\"></path><path style=\"", "\" fill=\"none\"", " stroke-width=\"4\" stroke-linecap=\"round\" stroke-miterlimit=\"10\" d=\"M16,6c3,0,5.7,1.3,7.5,3.4c0.6,0.7,1.1,1.4,1.5,2.2\"></path></svg>"];
-const Loader = props => {
-  const animation = `${rotate} 0.75s linear infinite`;
-  return ssr(_tmpl$$7, ssrHydrationKey(), "overflow:" + "visible", ssrAttribute("stroke", escape(props.primary, true) || "#E5E7EB", false), "animation:" + escape(animation, true) + (";transform-origin:" + "50% 50%"), ssrAttribute("stroke", escape(props.secondary, true) || "#4b5563", false));
-};
-
-toast;
-
 const _tmpl$$6 = ["<head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">", "", "</head>"],
-      _tmpl$2$2 = ["<html", " lang=\"en\">", "<body><!--#-->", "<!--/--><!--#-->", "<!--/--><!--#-->", "<!--/--></body></html>"];
+      _tmpl$2$2 = ["<html", " lang=\"en\">", "<body><!--#-->", "<!--/--><!--#-->", "<!--/--></body></html>"];
 function Root() {
   return ssr(_tmpl$2$2, ssrHydrationKey(), NoHydration({
     get children() {
@@ -1401,7 +944,7 @@ function Root() {
       });
     }
 
-  })), escape(createComponent(Scripts, {})), escape(createComponent(Toaster, {})));
+  })), escape(createComponent(Scripts, {})));
 }
 
 const api = [
@@ -1882,32 +1425,32 @@ var entryServer = createHandler(renderAsync(context => createComponent(StartServ
 const _tmpl$$5 = ["<div", "><h1 class=\"mb-1 text-center text-2xl font-semibold\"><!--#-->", "<!--/--> Favicon Generator</h1><h2 class=\"mb-8 text-center text-lg text-slate-400\">Quickly generate a favicon from an image</h2><div class=\"mx-auto mb-10 flex max-w-xs items-center justify-center rounded-full p-2 shadow-lg shadow-slate-200\">", "</div><div>", "</div></div>"],
       _tmpl$2$1 = ["<span", " class=\"absolute top-0 ml-1 rounded-full bg-blue-100 px-2 pt-[1px] pb-[2px] text-xs leading-snug text-blue-500\">soon</span>"],
       _tmpl$3$1 = ["<button", " class=\"", "\"><!--#-->", "<!--/--><!--#-->", "<!--/--></button>"];
-var View;
+var View$1;
 
 (function (View) {
   View[View["Image"] = 0] = "Image";
   View[View["Emoji"] = 1] = "Emoji";
   View[View["Text"] = 2] = "Text";
-})(View || (View = {}));
+})(View$1 || (View$1 = {}));
 
-const [view, setView] = createSignal(View.Image);
+const [view, setView] = createSignal(View$1.Image);
 const buttons = [{
   name: 'Image',
-  view: View.Image
+  view: View$1.Image
 }, {
   name: 'Emoji',
-  view: View.Emoji
+  view: View$1.Emoji
 }, {
   name: 'Text',
-  view: View.Text
+  view: View$1.Text
 }];
 const views = {
-  [View.Image]: lazy(() => Promise.resolve().then(function () { return ImageFavicon$1; })),
-  [View.Emoji]: lazy(() => Promise.resolve().then(function () { return EmojiFavicon$1; })),
-  [View.Text]: lazy(() => Promise.resolve().then(function () { return TextFavicon$1; }))
+  [View$1.Image]: lazy(() => Promise.resolve().then(function () { return ImageFavicon$1; })),
+  [View$1.Emoji]: lazy(() => Promise.resolve().then(function () { return EmojiFavicon$1; })),
+  [View$1.Text]: lazy(() => Promise.resolve().then(function () { return TextFavicon$1; }))
 };
 function Generator () {
-  const isImageView = view => view === View.Image;
+  const isImageView = view => view === View$1.Image;
 
   const currentButton = () => buttons.find(button => button.view === view());
 
@@ -1955,14 +1498,25 @@ var index$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   'default': index
 }, Symbol.toStringTag, { value: 'Module' }));
 
+var chromeDark = "/assets/chrome-dark.cc208366.png";
+
 const _tmpl$$2 = ["<div", " class=\"text-red-500\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg></div>"],
       _tmpl$2 = ["<div", " class=\"text-green-500\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg></div>"],
-      _tmpl$3 = ["<div", " class=\"mx-auto max-w-md\"><h3 class=\"mb-5 text-center font-semibold\">Your uploaded image</h3><div class=\"flex items-center gap-2 rounded-xl border border-slate-200 p-3 shadow-lg shadow-slate-200\"><div class=\"h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border border-slate-200\"><img", " class=\"aspect-square h-full w-full object-contain\"></div><div class=\"w-full\"><p class=\"font-medium\">You're good to go!</p><p class=\"flex gap-1 text-sm text-slate-400\"><span>", "</span><span class=\"flex-shrink-0\">(<!--#-->", "<!--/-->x<!--#-->", "<!--/-->px, <!--#-->", "<!--/-->)</span></p></div></div><div class=\"my-5 flex items-center justify-center gap-5 text-sm font-medium text-slate-500\"><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->Square</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->PNG or SVG</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->512px or higher</div></div><div class=\"flex items-center justify-center mt-10\"><button class=\"px-6 py-2\">Re-upload Image</button><button class=\"rounded-xl bg-blue-500 px-6 py-2 text-white\">Generate Favicon</button></div></div>"],
-      _tmpl$4 = ["<div", " class=\"mx-auto max-w-lg\"><label for=\"file-upload\" class=\"", "\"><div class=\"pointer-events-none flex flex-col items-center justify-center\"><div class=\"", "\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12\"></path></svg></div><p class=\"mt-2 font-medium\">Drag and drop files or browse</p><p class=\"text-sm\">Allowed are PNG, JPG and SVG with max. 2 MB</p></div></label><input id=\"file-upload\" name=\"file\" type=\"file\" class=\"hidden\"", "></div>"],
-      _tmpl$5 = ["<div", " class=\"mx-auto mt-4 flex max-w-lg flex-col items-center justify-center text-sm  font-medium text-slate-500\"><p class=\"flex justify-center gap-1\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>For the best result use a square SVG or PNG image with at least 512px</p></div>"];
+      _tmpl$3 = ["<div", " class=\"mx-auto max-w-lg\"><label for=\"file-upload\" class=\"", "\"><div class=\"pointer-events-none flex flex-col items-center justify-center\"><div class=\"", "\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12\"></path></svg></div><p class=\"mt-2 font-medium\">Drag and drop files or browse</p><p class=\"text-sm\">Allowed are PNG, JPG and SVG with max. 2 MB</p></div></label><input id=\"file-upload\" name=\"file\" type=\"file\" class=\"hidden\"", "></div>"],
+      _tmpl$4 = ["<div", " class=\"mx-auto mt-4 flex max-w-lg flex-col items-center justify-center text-sm  font-medium text-slate-500\"><p class=\"flex justify-center gap-1\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>For the best result use a square SVG or PNG image with at least 512px</p></div>"],
+      _tmpl$5 = ["<div", " class=\"mx-auto max-w-md\"><h3 class=\"mb-8 text-center font-semibold text-lg\">Your uploaded image</h3><div class=\"flex items-center gap-2 rounded-xl border border-slate-200 p-3 shadow-lg shadow-slate-200\"><div class=\"h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border border-slate-200\"><img", " class=\"aspect-square h-full w-full object-contain\"></div><div class=\"w-full\"><p class=\"font-medium\">", "</p><p class=\"flex gap-2 text-sm text-slate-400\"><span>", "</span><span class=\"flex-shrink-0\">(<!--#-->", "<!--/-->x<!--#-->", "<!--/-->px, <!--#-->", "<!--/-->)</span></p></div></div><div class=\"my-5 flex items-center justify-center gap-5 text-sm font-medium text-slate-500\"><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->Square</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->PNG or SVG</div><div class=\"flex items-center gap-1\"><!--#-->", "<!--/-->512px or higher</div></div><div class=\"flex items-center justify-center mt-14\"><button class=\"px-6 py-3 transition-colors hover:text-blue-500\">Re-upload Image</button><button class=\"rounded-xl bg-blue-500 px-6 py-3 text-white transition-colors hover:bg-blue-600\">Generate Favicon</button></div></div>"],
+      _tmpl$6 = ["<h3", " class=\"mb-8 text-center font-semibold text-lg\">Preview</h3>"],
+      _tmpl$7 = ["<div", " class=\"w-[300px] relative\"><img", " class=\"absolute top-[16px] left-[85px] z-5\" width=\"16\" height=\"16\"><img", "></div>"];
 
 const allowedFileTypes = ['image/png', 'image/jpeg', 'image/svg+xml'];
 const units = ['bytes', 'KB', 'MB'];
+var View;
+
+(function (View) {
+  View[View["Upload"] = 0] = "Upload";
+  View[View["UploadedInfo"] = 1] = "UploadedInfo";
+  View[View["Preview"] = 2] = "Preview";
+})(View || (View = {}));
 
 function niceBytes(x) {
   let l = 0;
@@ -1988,7 +1542,9 @@ const XIcon = () => ssr(_tmpl$$2, ssrHydrationKey());
 const CheckIcon = () => ssr(_tmpl$2, ssrHydrationKey());
 
 function ImageFavicon () {
+  const [view, setView] = createSignal(View.Upload);
   const [image, setImage] = createSignal(null);
+  const [previewIcon, setPreviewIcon] = createSignal();
   const [isOverDropzone, setIsOverDropzone] = createSignal(false);
 
   const isSquare = () => image()?.width === image()?.height;
@@ -1997,56 +1553,91 @@ function ImageFavicon () {
 
   const is512pxOrHigher = () => !!(image()?.width && image().width >= 512);
 
-  return createComponent(Show, {
-    get when() {
-      return image();
-    },
+  const infoMessage = () => {
+    if (!isSquare()) {
+      return 'Your image should be square.';
+    }
 
-    get fallback() {
-      return [ssr(_tmpl$4, ssrHydrationKey(), `dropzone group flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-400 bg-slate-50 px-6 py-10 text-slate-400 transition-[border-color,background-color] hover:border-blue-500 hover:bg-blue-50 hover:text-blue-500 ${isOverDropzone() ? "border-blue-500 bg-blue-50 text-blue-500" : ""}`, `flex h-12 w-12 items-center justify-center rounded-full bg-black/5 transition-[background-color,transform] group-hover:bg-blue-100 ${isOverDropzone() ? "bg-blue-100 -translate-y-1" : ""}`, ssrAttribute("accept", escape(allowedFileTypes.join(','), true), false)), ssr(_tmpl$5, ssrHydrationKey())];
-    },
+    if (!isPngOrSvg()) {
+      return 'Your image should be a PNG or SVG.';
+    }
 
+    if (!is512pxOrHigher()) {
+      return 'Your image should be 512px or higher.';
+    }
+
+    return "You're good to go!";
+  };
+
+  return createComponent(Switch, {
     get children() {
-      return ssr(_tmpl$3, ssrHydrationKey(), ssrAttribute("src", escape(image().base64, true), false) + ssrAttribute("alt", escape(image().name, true), false), escape(formatName(image().name)), escape(image().width), escape(image().height), escape(niceBytes(image().size)), escape(createComponent(Show, {
+      return [createComponent(Match, {
         get when() {
-          return isSquare();
-        },
-
-        get fallback() {
-          return createComponent(XIcon, {});
+          return view() === View.Upload;
         },
 
         get children() {
-          return createComponent(CheckIcon, {});
+          return [ssr(_tmpl$3, ssrHydrationKey(), `dropzone group flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-400 bg-slate-50 px-6 py-10 text-slate-400 transition-[border-color,background-color] hover:border-blue-500 hover:bg-blue-50 hover:text-blue-500 ${isOverDropzone() ? "border-blue-500 bg-blue-50 text-blue-500" : ""}`, `flex h-12 w-12 items-center justify-center rounded-full bg-black/5 transition-[background-color,transform] group-hover:bg-blue-100 ${isOverDropzone() ? "bg-blue-100 -translate-y-1" : ""}`, ssrAttribute("accept", escape(allowedFileTypes.join(','), true), false)), ssr(_tmpl$4, ssrHydrationKey())];
         }
 
-      })), escape(createComponent(Show, {
+      }), createComponent(Match, {
         get when() {
-          return isPngOrSvg();
-        },
-
-        get fallback() {
-          return createComponent(XIcon, {});
+          return view() === View.UploadedInfo && image();
         },
 
         get children() {
-          return createComponent(CheckIcon, {});
+          return ssr(_tmpl$5, ssrHydrationKey(), ssrAttribute("src", escape(image().base64, true), false) + ssrAttribute("alt", escape(image().name, true), false), escape(infoMessage()), escape(formatName(image().name)), escape(image().width), escape(image().height), escape(niceBytes(image().size)), escape(createComponent(Show, {
+            get when() {
+              return isSquare();
+            },
+
+            get fallback() {
+              return createComponent(XIcon, {});
+            },
+
+            get children() {
+              return createComponent(CheckIcon, {});
+            }
+
+          })), escape(createComponent(Show, {
+            get when() {
+              return isPngOrSvg();
+            },
+
+            get fallback() {
+              return createComponent(XIcon, {});
+            },
+
+            get children() {
+              return createComponent(CheckIcon, {});
+            }
+
+          })), escape(createComponent(Show, {
+            get when() {
+              return is512pxOrHigher();
+            },
+
+            get fallback() {
+              return createComponent(XIcon, {});
+            },
+
+            get children() {
+              return createComponent(CheckIcon, {});
+            }
+
+          })));
         }
 
-      })), escape(createComponent(Show, {
+      }), createComponent(Match, {
         get when() {
-          return is512pxOrHigher();
-        },
-
-        get fallback() {
-          return createComponent(XIcon, {});
+          return view() === View.Preview;
         },
 
         get children() {
-          return createComponent(CheckIcon, {});
+          return [ssr(_tmpl$6, ssrHydrationKey()), ssr(_tmpl$7, ssrHydrationKey(), ssrAttribute("src", escape(previewIcon(), true), false), ssrAttribute("src", escape(chromeDark, true), false))];
         }
 
-      })));
+      })];
     }
 
   });

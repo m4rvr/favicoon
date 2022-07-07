@@ -1,0 +1,9 @@
+{
+  "functions": [
+    {
+      "function": "index",
+      "pattern": "^[^.]*$"
+    }
+  ],
+  "version": 1
+}
