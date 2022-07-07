@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "solid-start dev",
-    "build": "rm -rf netlify .solid && solid-start build",
+    "build": "solid-start build",
     "start": "solid-start start"
   },
   "dependencies": {

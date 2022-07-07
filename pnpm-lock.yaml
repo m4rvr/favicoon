@@ -50,6 +50,7 @@ importers:
       '@types/sharp': ^0.30.4
       adm-zip: ^0.5.9
       dotenv: ^16.0.1
+      dotenv-cli: ^6.0.0
       fastify: ^4.2.0
       png-to-ico: ^2.1.4
       puppeteer: ^15.3.1
@@ -71,6 +72,7 @@ importers:
       '@types/adm-zip': 0.5.0
       '@types/sharp': 0.30.4
       dotenv: 16.0.1
+      dotenv-cli: 6.0.0
       tsup: 6.1.3_typescript@4.7.4
       tsx: 3.7.1
       typescript: 4.7.4
@@ -3472,6 +3474,21 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       is-obj: 2.0.0
+    dev: true
+
+  /dotenv-cli/6.0.0:
+    resolution: {integrity: sha512-qXlCOi3UMDhCWFKe0yq5sg3X+pJAz+RQDiFN38AMSbUrnY3uZshSfDJUAge951OS7J9gwLZGfsBlWRSOYz/TRg==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.0.1
+      dotenv-expand: 8.0.3
+      minimist: 1.2.6
+    dev: true
+
+  /dotenv-expand/8.0.3:
+    resolution: {integrity: sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==}
+    engines: {node: '>=12'}
     dev: true
 
   /dotenv/16.0.1:
