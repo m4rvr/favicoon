@@ -1,6 +1,6 @@
 import { type JSX, Match, Show, Switch, createSignal } from 'solid-js'
 import type { UploadedImage } from '../types'
-// import { getPreviewIcon } from '../utils'
+import { getPreviewIcon } from '../utils'
 import chromeDark from '../assets/previews/chrome-dark.png'
 
 const bytesToMegaBytes = (bytes: number) => bytes / 1024 ** 2
@@ -182,7 +182,7 @@ export default function (): JSX.Element {
         }
       )
 
-      // setPreviewIcon(await getPreviewIcon(await data.blob()))
+      setPreviewIcon(await getPreviewIcon(await data.blob()))
       setView(View.Preview)
     } catch (error) {
       console.error(error)
