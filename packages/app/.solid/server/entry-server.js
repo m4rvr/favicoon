@@ -1,7 +1,5 @@
 import { renderToStringAsync, isServer, createComponent, Assets, ssr, ssrHydrationKey, ssrAttribute, escape, HydrationScript, NoHydration, Dynamic } from 'solid-js/web';
 import { createContext, createSignal, onMount, onCleanup, runWithOwner, createMemo, getOwner, useContext, createComponent as createComponent$1, useTransition, on, untrack, resetErrorBoundaries, createRenderEffect, children, createRoot, Show, lazy, ErrorBoundary as ErrorBoundary$1, Suspense, sharedConfig, For, Switch, Match } from 'solid-js';
-import 'jszip';
-import 'magic-bytes.js';
 
 function renderAsync(fn, options) {
   return () => async (context) => {

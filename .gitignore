@@ -9,3 +9,5 @@ temp
 .output
 # Local Netlify folder
 .netlify
+netlify
+.solid
