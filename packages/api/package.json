@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "dotenv tsx watch ./src/index.ts",
-    "build": "tsup ./src/index.ts --format esm --target node14 --env.NODE_ENV production",
+    "build": "tsup ./src/index.ts --format esm --target node16 --env.NODE_ENV production",
     "start": "node ./dist/index.js"
   },
   "dependencies": {
