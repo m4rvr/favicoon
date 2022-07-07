@@ -7,3 +7,5 @@
 temp
 .turbo
 .output
+# Local Netlify folder
+.netlify
