@@ -109,7 +109,8 @@ export async function startServer() {
   const port = process.env.PORT ?? 8080
   server.listen(
     {
-      port
+      port,
+      host: '0.0.0.0'
     },
     (error) => {
       if (error) throw error
