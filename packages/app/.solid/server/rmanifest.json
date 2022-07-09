@@ -3,6 +3,10 @@
     {
       "type": "script",
       "href": "/entry-server.js"
+    },
+    {
+      "type": "script",
+      "href": "/magic-bytes.js"
     }
   ]
 }
