@@ -5,9 +5,10 @@ import unocss from 'unocss/vite'
 import netlify from 'solid-start-netlify'
 
 export default defineConfig({
-  /* ssr: {
+  // @ts-expect-error no types from Vite?
+  ssr: {
     noExternal: ['solid-toast']
-  }, */
+  },
   plugins: [
     solid({
       adapter: netlify({

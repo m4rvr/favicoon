@@ -9,6 +9,24 @@ import pngToIco from 'png-to-ico'
 // import { createContext } from './context'
 // import { appRouter } from './router'
 
+const manifestCode = `{
+  "icons": [
+    { "src": "/favicon-192x192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/favicon-512x512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}`
+
+const readmeContent = (isSvg: boolean) => {
+  return `Paste into <head>:
+  
+<link rel="icon" href="/favicon.ico" sizes="any">${
+    isSvg ? '\n<link rel="icon" href="/favicon.svg" type="image/svg+xml">' : ''
+  }
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+  `
+}
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function createServer() {
@@ -97,6 +115,15 @@ function createServer() {
     })
 
     await Promise.all(filePromises)
+
+    zip.addFile(
+      '/manifest.webmanifest',
+      Buffer.alloc(manifestCode.length, manifestCode)
+    )
+
+    const readme = readmeContent(false)
+
+    zip.addFile('/README.txt', Buffer.alloc(readme.length, readme))
 
     reply.type('application/zip').send(zip.toBuffer())
   })

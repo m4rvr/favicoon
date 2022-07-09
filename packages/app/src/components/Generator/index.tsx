@@ -16,9 +16,20 @@ const buttons = [
 ]
 
 const views: Record<View, any> = {
-  [View.Image]: lazy(() => import('./ImageFavicon')),
-  [View.Emoji]: lazy(() => import('./EmojiFavicon')),
-  [View.Text]: lazy(() => import('./TextFavicon'))
+  [View.Image]: lazy(async () => {
+    const Provider = (await import('../../context/ImageFaviconContext.js'))
+      .default
+    const ImageFavicon = (await import('./ImageFavicon/index.js')).default
+    return {
+      default: () => (
+        <Provider>
+          <ImageFavicon />
+        </Provider>
+      )
+    }
+  }),
+  [View.Emoji]: lazy(() => import('./EmojiFavicon/index.js')),
+  [View.Text]: lazy(() => import('./TextFavicon/index.js'))
 }
 
 export default function (): JSX.Element {

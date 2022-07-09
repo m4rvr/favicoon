@@ -11,13 +11,15 @@
   "dependencies": {
     "@trpc/client": "^9.25.3",
     "@unocss/reset": "^0.43.2",
+    "canvas-confetti": "^1.5.1",
     "csstype": "^3.1.0",
     "jszip": "^3.10.0",
     "magic-bytes.js": "^1.0.12",
     "node-fetch": "^3.2.6",
-    "solid-toast": "^0.1.5"
+    "solid-toast": "0.1.7-alpha.12"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.4.2",
     "solid-app-router": "^0.4.1",
     "solid-js": "^1.4.6",
     "solid-meta": "^0.27.5",

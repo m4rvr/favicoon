@@ -80,7 +80,9 @@ importers:
   packages/app:
     specifiers:
       '@trpc/client': ^9.25.3
+      '@types/canvas-confetti': ^1.4.2
       '@unocss/reset': ^0.43.2
+      canvas-confetti: ^1.5.1
       csstype: ^3.1.0
       jszip: ^3.10.0
       magic-bytes.js: ^1.0.12
@@ -91,19 +93,21 @@ importers:
       solid-start: 0.1.0-alpha.89
       solid-start-netlify: 0.1.0-alpha.82
       solid-start-node: 0.1.0-alpha.82
-      solid-toast: ^0.1.5
+      solid-toast: 0.1.7-alpha.12
       undici: ^4.12.2
       unocss: ^0.43.2
       vite: ^2.9.13
     dependencies:
       '@trpc/client': 9.25.3
       '@unocss/reset': 0.43.2
+      canvas-confetti: 1.5.1
       csstype: 3.1.0
       jszip: 3.10.0
       magic-bytes.js: 1.0.12
       node-fetch: 3.2.6
-      solid-toast: 0.1.5_7v3d6fuqciyubrr2fmi3watxxq
+      solid-toast: 0.1.7-alpha.12_7v3d6fuqciyubrr2fmi3watxxq
     devDependencies:
+      '@types/canvas-confetti': 1.4.2
       solid-app-router: 0.4.1_solid-js@1.4.6
       solid-js: 1.4.6
       solid-meta: 0.27.5_solid-js@1.4.6
@@ -2236,6 +2240,10 @@ packages:
       '@types/node': 18.0.3
     dev: true
 
+  /@types/canvas-confetti/1.4.2:
+    resolution: {integrity: sha512-t45KUDHlwrD9PJVRHc5z1SlXhO82BQEgMKUXGEV1KnWLFMPA6Y5LfUsLTHHzH9KcKDHZLEiYYH5nIDcjRKWNTg==}
+    dev: true
+
   /@types/debug/4.1.7:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
@@ -2986,6 +2994,10 @@ packages:
   /caniuse-lite/1.0.30001363:
     resolution: {integrity: sha512-HpQhpzTGGPVMnCjIomjt+jvyUu8vNFo3TaDiZ/RcoTrlOq/5+tC8zHdsbgFB6MxmaY+jCpsH09aD80Bb4Ow3Sg==}
     dev: true
+
+  /canvas-confetti/1.5.1:
+    resolution: {integrity: sha512-Ncz+oZJP6OvY7ti4E1slxVlyAV/3g7H7oQtcCDXgwGgARxPnwYY9PW5Oe+I8uvspYNtuHviAdgA0LfcKFWJfpg==}
+    dev: false
 
   /chalk/2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -6814,10 +6826,10 @@ packages:
       - supports-color
     dev: true
 
-  /solid-toast/0.1.5_7v3d6fuqciyubrr2fmi3watxxq:
-    resolution: {integrity: sha512-0c5n5Va8jzs03b7E0GJMu4xEZ7MMlmK3PNl93C3P0jm1itD0ypdSgqUQF1aGtPuX8LO898XZRvk+oQz72aStwQ==}
+  /solid-toast/0.1.7-alpha.12_7v3d6fuqciyubrr2fmi3watxxq:
+    resolution: {integrity: sha512-sK+HVuwWPEv5kO3rT7NZlPh5CbTZf97OEm9MoyJtJXMDQ4WLJ1tdBP+b43Bn1p5Boc+kPWiL/KmSUxLMLfMviw==}
     peerDependencies:
-      solid-js: ^1.4.2
+      solid-js: ^1.4.3
     dependencies:
       goober: 2.1.10_csstype@3.1.0
       solid-js: 1.4.6
