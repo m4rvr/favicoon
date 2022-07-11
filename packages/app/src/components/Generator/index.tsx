@@ -9,7 +9,7 @@ enum View {
 
 const [view, setView] = createSignal(View.Image)
 
-const buttons = [
+const types = [
   { name: 'Image', view: View.Image },
   { name: 'Emoji', view: View.Emoji },
   { name: 'Text', view: View.Text }
@@ -33,46 +33,47 @@ const views: Record<View, any> = {
 }
 
 export default function (): JSX.Element {
-  const isImageView = (view: View) => view === View.Image
-  const currentButton = () => buttons.find((button) => button.view === view())!
+  const isWIPType = (view: View) => view !== View.Image
+  // const currentType = () => types.find((type) => type.view === view())!
 
   return (
-    <div>
-      <h1 class="mb-1 text-center text-2xl font-semibold">
-        {currentButton().name} Favicon Generator
-      </h1>
-      <h2 class="mb-8 text-center text-lg text-slate-400">
-        Quickly generate a favicon from an image
-      </h2>
-      <div class="mx-auto mb-10 flex max-w-xs items-center justify-center rounded-full p-2 shadow-lg shadow-slate-200">
-        <For each={buttons}>
-          {(button) => (
-            <button
-              class="w-1/3 rounded-full px-4 py-2 transition-colors"
-              classList={{
-                'bg-blue-500 text-white': view() === button.view,
-                'hover:text-blue-500':
-                  view() !== button.view && isImageView(button.view),
-                'cursor-default relative text-slate-400': !isImageView(
-                  button.view
-                )
-              }}
-              onClick={() => {
-                if (!isImageView(button.view)) return
-                setView(button.view)
-              }}
-            >
-              {button.name}
-              <Show when={!isImageView(button.view)}>
-                <span class="absolute top-0 ml-1 rounded-full bg-blue-100 px-2 pt-[1px] pb-[2px] text-xs leading-snug text-blue-500">
-                  soon
+    <div class="relative h-full">
+      <div class="absolute z-5 top-0 left-0 right-0 flex flex-col gap-3 max-w-70 mx-auto">
+        <h3 class="text-center font-medium">Choose your type</h3>
+        <nav class="flex gap-1 items-center justify-center bg-white p-1.5 rounded-lg leading-tight shadow-lg shadow-neutral-200">
+          <For each={types}>
+            {(type) => (
+              <button
+                class="w-1/3 px-2 py-2 rounded-md"
+                classList={{
+                  'bg-neutral-900 text-white cursor-default':
+                    type.view === view(),
+                  'cursor-default relative': isWIPType(type.view)
+                }}
+                onClick={() => {
+                  if (isWIPType(type.view)) return
+                  setView(type.view)
+                }}
+              >
+                <span
+                  classList={{
+                    'opacity-50': isWIPType(type.view)
+                  }}
+                >
+                  {type.name}
                 </span>
-              </Show>
-            </button>
-          )}
-        </For>
+                <Show when={isWIPType(type.view)}>
+                  <span class="bg-neutral-900 text-white px-[5px] pb-[1px] rounded-md absolute top-0 right-0 text-xs -translate-y-[4px] translate-x-[14px]">
+                    soon
+                  </span>
+                </Show>
+              </button>
+            )}
+          </For>
+        </nav>
       </div>
-      <div>
+
+      <div class="h-full flex items-center">
         <Dynamic component={views[view()]} />
       </div>
     </div>

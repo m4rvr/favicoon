@@ -1,4 +1,5 @@
-import { type JSX, Show } from 'solid-js'
+import { type JSX, Show, createSignal } from 'solid-js'
+import toast from 'solid-toast'
 import { View, useImageFavicon } from '../../../context/ImageFaviconContext.js'
 import { getPreviewIconUrl } from '../../../utils.js'
 
@@ -54,6 +55,7 @@ const CheckIcon = () => (
 
 export default function (): JSX.Element {
   const [state, { setState }] = useImageFavicon()
+  const [isGenerating, setIsGenerating] = createSignal(false)
   const isSquare = () =>
     state.uploadedImage?.width === state.uploadedImage?.height
   const isPngOrSvg = () =>
@@ -98,6 +100,7 @@ export default function (): JSX.Element {
 
   const generateFavicon = async () => {
     if (!state.uploadedImage) return
+    setIsGenerating(true)
     const formData = new FormData()
     formData.append('file', state.uploadedImage.file)
 
@@ -118,67 +121,71 @@ export default function (): JSX.Element {
       setState('view', View.Generated)
     } catch (error) {
       console.error(error)
+      toast.error('Error while generating favicon')
+    } finally {
+      setIsGenerating(false)
     }
   }
 
   return (
-    <div class="mx-auto max-w-md">
-      <h3 class="mb-8 text-center font-semibold text-lg">
-        Your uploaded image
-      </h3>
-      <div class="flex items-center gap-2 rounded-xl border border-slate-200 p-3 shadow-lg shadow-slate-200">
-        <div class="h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border border-slate-200">
-          <img
-            src={state.uploadedImage?.base64}
-            alt={state.uploadedImage?.name}
-            class="aspect-square h-full w-full object-contain"
-          />
-        </div>
-        <div class="w-full">
-          <p class="font-medium">{infoMessage()}</p>
-          <p class="flex gap-2 text-sm text-slate-400">
-            <span>{formattedName()}</span>
-            <span class="flex-shrink-0">
-              ({state.uploadedImage?.width}x{state.uploadedImage?.height}px,{' '}
-              {formattedBytes()})
+    <div class="mx-auto w-full max-w-md flex flex-col justify-center items-center gap-4">
+      <Show
+        when={!isGenerating()}
+        fallback={
+          <p class="text-xl font-medium">Generating your favicon 🤖...</p>
+        }
+      >
+        <p class="font-medium text-lg mt-10 mb-4">{infoMessage()}</p>
+        <div class="w-full max-w-90 flex gap-4 items-center p-4 rounded-xl bg-white shadow-lg shadow-neutral-200">
+          <div class="rounded-xl w-16 aspect-square bg-white border border-neutral-200 overflow-hidden">
+            <img
+              src={state.uploadedImage?.base64}
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <p class="flex flex-col">
+            <span class="block font-medium">{formattedName()}</span>
+            <span class="block text-neutral-400">
+              {state.uploadedImage?.width}x{state.uploadedImage?.height}px |{' '}
+              {formattedBytes()}
             </span>
           </p>
         </div>
-      </div>
-      <div class="my-5 flex items-center justify-center gap-5 text-sm font-medium text-slate-500">
-        <div class="flex items-center gap-1">
-          <Show when={isSquare()} fallback={<XIcon />}>
-            <CheckIcon />
-          </Show>
-          Square
+        <div class="grid grid-cols-3 gap-10 mt-5">
+          <div class="flex flex-col items-center">
+            <Show when={isSquare()} fallback={<XIcon />}>
+              <CheckIcon />
+            </Show>
+            <span class="block font-medium mt-1">Square image</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <Show when={isPngOrSvg()} fallback={<XIcon />}>
+              <CheckIcon />
+            </Show>
+            <span class="block font-medium mt-1">PNG or SVG</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <Show when={is512pxOrHigher()} fallback={<XIcon />}>
+              <CheckIcon />
+            </Show>
+            <span class="block font-medium mt-1">512px or higher</span>
+          </div>
         </div>
-        <div class="flex items-center gap-1">
-          <Show when={isPngOrSvg()} fallback={<XIcon />}>
-            <CheckIcon />
-          </Show>
-          PNG or SVG
+        <div class="flex items-center mt-10">
+          <button
+            class="rounded-lg px-4 py-2 transition-transform hover:scale-103"
+            onClick={reuploadImage}
+          >
+            Re-upload image
+          </button>
+          <button
+            class="rounded-lg bg-neutral-900 text-white px-4 py-2 transition-[background-color,box-shadow,transform] transition-200 ease-in-out hover:bg-neutral-800 hover:shadow-lg hover:shadow-neutral-200 hover:scale-103"
+            onClick={generateFavicon}
+          >
+            Generate Favicon
+          </button>
         </div>
-        <div class="flex items-center gap-1">
-          <Show when={is512pxOrHigher()} fallback={<XIcon />}>
-            <CheckIcon />
-          </Show>
-          512px or higher
-        </div>
-      </div>
-      <div class="flex items-center justify-center mt-14">
-        <button
-          class="px-6 py-3 transition-colors hover:text-blue-500"
-          onClick={reuploadImage}
-        >
-          Re-upload Image
-        </button>
-        <button
-          class="rounded-xl bg-blue-500 px-6 py-3 text-white transition-colors hover:bg-blue-600"
-          onClick={generateFavicon}
-        >
-          Generate Favicon
-        </button>
-      </div>
+      </Show>
     </div>
   )
 }

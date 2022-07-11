@@ -1,4 +1,5 @@
 import { type JSX, createSignal } from 'solid-js'
+import { toast } from 'solid-toast'
 import { View, useImageFavicon } from '../../../context/ImageFaviconContext.js'
 import { readFile } from '../../../utils.js'
 
@@ -23,12 +24,12 @@ export default function (): JSX.Element {
 
   const processFile = async (file: File) => {
     if (!allowedFileTypes.includes(file.type)) {
-      // toast.error('Only PNG or SVG files are allowed.')
+      toast.error('Only PNG or SVG files are allowed.')
       return
     }
 
     if (bytesToMegaBytes(file.size) > 2) {
-      // toast.error('The uploaded file is too large.')
+      toast.error('The uploaded file is too large.')
       return
     }
 
@@ -81,75 +82,55 @@ export default function (): JSX.Element {
   }
 
   return (
-    <>
-      <div class="mx-auto max-w-lg">
-        <label
-          for="file-upload"
-          class="dropzone group flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-400 bg-slate-50 px-6 py-10 text-slate-400 transition-[border-color,background-color] hover:border-blue-500 hover:bg-blue-50 hover:text-blue-500"
-          onDrop={onDrop}
-          onDragEnter={onDragEnter}
-          onDragLeave={onDragLeave}
-          onDragOver={onDragOver}
-          classList={{
-            'border-blue-500 bg-blue-50 text-blue-500': isOverDropzone()
-          }}
-        >
-          <div class="pointer-events-none flex flex-col items-center justify-center">
-            <div
-              class="flex h-12 w-12 items-center justify-center rounded-full bg-black/5 transition-[background-color,transform] group-hover:bg-blue-100"
-              classList={{
-                'bg-blue-100 -translate-y-1': isOverDropzone()
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
-            </div>
-            <p class="mt-2 font-medium">Drag and drop files or browse</p>
-            <p class="text-sm">
-              Allowed are PNG, JPG and SVG with max. {maxMb} MB
-            </p>
-          </div>
-        </label>
-        <input
-          id="file-upload"
-          name="file"
-          type="file"
-          class="hidden"
-          accept={allowedFileTypes.join(',')}
-          onChange={onChange}
-        />
-      </div>
-      <div class="mx-auto mt-4 flex max-w-lg flex-col items-center justify-center text-sm  font-medium text-slate-500">
-        <p class="flex justify-center gap-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
+    <div class="w-full max-w-md mx-auto">
+      <label
+        for="file-upload"
+        class="transition-all group flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-10 bg-white shadow-lg shadow-neutral-200 hover:border-neutral-900 hover:text-neutral-900 hover:scale-103"
+        onDrop={onDrop}
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+        onDragOver={onDragOver}
+        classList={{
+          'border-neutral-900 text-neutral-900 scale-103': isOverDropzone(),
+          'border-neutral-400 text-neutral-400': !isOverDropzone()
+        }}
+      >
+        <div class="pointer-events-none flex flex-col items-center justify-center">
+          <div
+            class="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100 transition-transform"
+            classList={{
+              '-translate-y-1': isOverDropzone()
+            }}
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          For the best result use a square SVG or PNG image with at least 512px
-        </p>
-      </div>
-    </>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+              />
+            </svg>
+          </div>
+          <p class="mt-2 font-medium">Drag and drop file or browse</p>
+          <p class="text-sm">
+            Allowed are PNG, JPG and SVG with max. {maxMb} MB
+          </p>
+        </div>
+      </label>
+      <input
+        id="file-upload"
+        name="file"
+        type="file"
+        class="hidden"
+        accept={allowedFileTypes.join(',')}
+        onChange={onChange}
+      />
+    </div>
   )
 }
