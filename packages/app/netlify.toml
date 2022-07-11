@@ -1,3 +1,4 @@
-[build]
-  publish = "netlify/"
-  environment = { AWS_LAMBDA_JS_RUNTIME = "nodejs16.x" }
+[[redirects]]
+  from = "/"
+  to = "/favicon-generator"
+  status = 200

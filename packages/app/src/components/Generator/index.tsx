@@ -1,4 +1,4 @@
-import { For, type JSX, Show, createSignal, lazy } from 'solid-js'
+import { For, type JSX, Show, Suspense, createSignal, lazy } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
 enum View {
@@ -72,9 +72,10 @@ export default function (): JSX.Element {
           </For>
         </nav>
       </div>
-
-      <div class="h-full flex items-center">
-        <Dynamic component={views[view()]} />
+      <div class="h-full flex items-center justify-center">
+        <Suspense fallback={<p class="text-xl font-medium">Loading...</p>}>
+          <Dynamic component={views[view()]} />
+        </Suspense>
       </div>
     </div>
   )

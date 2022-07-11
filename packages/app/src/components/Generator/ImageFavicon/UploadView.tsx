@@ -1,6 +1,6 @@
 import { type JSX, createSignal } from 'solid-js'
 import { toast } from 'solid-toast'
-import { View, useImageFavicon } from '../../../context/ImageFaviconContext.js'
+import { View, useImageFavicon } from '../../../context/ImageFaviconContext.jsx'
 import { readFile } from '../../../utils.js'
 
 const bytesToMegaBytes = (bytes: number) => bytes / 1024 ** 2
