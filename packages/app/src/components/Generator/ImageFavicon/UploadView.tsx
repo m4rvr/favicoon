@@ -24,12 +24,12 @@ export default function (): JSX.Element {
 
   const processFile = async (file: File) => {
     if (!allowedFileTypes.includes(file.type)) {
-      toast.error('Only PNG or SVG files are allowed.')
+      toast.error('Only PNG, JPG and SVG files are allowed.')
       return
     }
 
-    if (bytesToMegaBytes(file.size) > 2) {
-      toast.error('The uploaded file is too large.')
+    if (bytesToMegaBytes(file.size) > maxMb) {
+      toast.error(`The uploaded file is too large (max ${maxMb} MB).`)
       return
     }
 

@@ -21,7 +21,7 @@ interface UploadedImage {
 interface State {
   view: View
   uploadedImage: UploadedImage | null
-  previewIconUrl: string | null
+  generatedFiles: { hasSvg: boolean; appleTouchIcon: string } | null
   zipBlob: Blob | null
 }
 
@@ -38,7 +38,7 @@ export default function (props: ParentProps): JSX.Element {
   const [state, setState] = createStore<State>({
     view: View.Upload,
     uploadedImage: null,
-    previewIconUrl: null,
+    generatedFiles: null,
     zipBlob: null
   })
 

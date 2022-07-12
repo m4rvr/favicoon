@@ -1,7 +1,7 @@
 import { type JSX, Show, createSignal } from 'solid-js'
 import toast from 'solid-toast'
 import { View, useImageFavicon } from '../../../context/ImageFaviconContext.js'
-import { getPreviewIconUrl } from '../../../utils.js'
+import { getGeneratedFiles } from '../../../utils.js'
 
 const units = ['bytes', 'KB', 'MB']
 const niceBytes = (x: number) => {
@@ -111,10 +111,10 @@ export default function (): JSX.Element {
       })
 
       const zipBlob = await data.blob()
-      const previewIconUrl = await getPreviewIconUrl(zipBlob)
+      const generatedFiles = await getGeneratedFiles(zipBlob)
 
       setState('zipBlob', zipBlob)
-      setState('previewIconUrl', previewIconUrl)
+      setState('generatedFiles', generatedFiles)
       setState('view', View.Generated)
     } catch (error) {
       console.error(error)

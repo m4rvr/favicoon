@@ -29,10 +29,13 @@ export default function (): JSX.Element {
     }
   })
 
-  const codeToCopy = `<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.webmanifest">`
+  const codeToCopy = `<link rel="icon" href="/favicon.ico" sizes="any" />${
+    state.generatedFiles?.hasSvg
+      ? '\n<link rel="icon" href="/favicon.svg" type="image/svg+xml" />'
+      : ''
+  }
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />`
 
   const copyCode = async () => {
     await navigator.clipboard.writeText(codeToCopy)
@@ -48,7 +51,7 @@ export default function (): JSX.Element {
         <div class="flex gap-4 items-center justify-center mb-4">
           <div class="w-[310px] relative flex-shrink-0">
             <img
-              src={state.previewIconUrl!}
+              src={state.generatedFiles!.appleTouchIcon!}
               class="absolute top-[17px] left-[88px] z-5"
               width="16"
               height="16"
@@ -57,7 +60,7 @@ export default function (): JSX.Element {
           </div>
           <div class="w-[310px] relative flex-shrink-0">
             <img
-              src={state.previewIconUrl!}
+              src={state.generatedFiles!.appleTouchIcon!}
               class="absolute top-[17px] left-[88px] z-5"
               width="16"
               height="16"
@@ -88,7 +91,7 @@ export default function (): JSX.Element {
         <a
           href={zipUrl()}
           class="rounded-xl bg-blue-500 inline-block px-6 py-3 text-white transition-colors hover:bg-blue-600"
-          download={'favicon.zip'}
+          download={'favicons.zip'}
         >
           Download Favicon
         </a>

@@ -45,33 +45,24 @@ export async function getFilesFromZip(zipBlob: Blob) {
   return files.filter(Boolean)
 }
 
-export async function getPreviewIconUrl(zipBlob: Blob) {
+export async function getGeneratedFiles(zipBlob: Blob) {
   const jszip = new JSZip()
   const zip = await jszip.loadAsync(zipBlob)
-  const file = zip.file('/apple-touch-icon.png')
-  const blob = await file?.async('blob')
-  if (!blob) return null
+  const hasSvg = !!zip.file('/favicon.svg')
+  const appleTouchIcon = zip.file('/apple-touch-icon.png')
+  const iconBlob = await appleTouchIcon?.async('blob')
+  if (!iconBlob) return null
 
-  const mimeTypes = await getMimeTypes(blob)
-  const rawBase64 = await file?.async('base64')
+  const mimeTypes = await getMimeTypes(iconBlob)
+  const rawBase64 = await appleTouchIcon?.async('base64')
   if (!rawBase64) return null
 
   const base64 = await getImageBase64(rawBase64, mimeTypes[0])
-  return base64
-}
 
-export function downloadZip(blob: Blob) {
-  const fileReader = new FileReader()
-  fileReader.onload = () => {
-    const anchor = document.createElement('a')
-    anchor.href = fileReader.result as string
-    anchor.download = ''
-    document.body.appendChild(anchor)
-    anchor.click()
-    anchor.remove()
+  return {
+    hasSvg,
+    appleTouchIcon: base64
   }
-
-  fileReader.readAsDataURL(blob)
 }
 
 export const readFile = (file: File | Blob): Promise<string> => {
