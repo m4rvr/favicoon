@@ -105,7 +105,7 @@ export default function (): JSX.Element {
     formData.append('file', state.uploadedImage.file)
 
     try {
-      const data = await fetch('/.netlify/functions/generate-favicon', {
+      const data = await fetch('/api/generate-favicon', {
         method: 'POST',
         body: formData
       })
