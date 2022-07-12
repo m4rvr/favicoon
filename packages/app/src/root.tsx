@@ -16,6 +16,15 @@ export default function Root() {
         <link rel="icon" href="/favicon.ico" />
         <Meta />
         <Links />
+        <script
+          defer
+          data-domain="favicoon.netlify.app"
+          src="https://plausible.io/js/plausible.js"
+        />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body>
         <ErrorBoundary>

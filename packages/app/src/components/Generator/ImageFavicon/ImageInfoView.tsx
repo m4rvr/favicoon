@@ -105,13 +105,10 @@ export default function (): JSX.Element {
     formData.append('file', state.uploadedImage.file)
 
     try {
-      const data = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/generate-icons`,
-        {
-          method: 'POST',
-          body: formData
-        }
-      )
+      const data = await fetch('/api/generate-favicon', {
+        method: 'POST',
+        body: formData
+      })
 
       const zipBlob = await data.blob()
       const previewIconUrl = await getPreviewIconUrl(zipBlob)

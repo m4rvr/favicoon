@@ -11,7 +11,9 @@ export default defineConfig({
   },
   plugins: [
     solid({
-      adapter: staticAdapter()
+      adapter: staticAdapter({
+        prerenderRoutes: ['/404']
+      })
     }),
     unocss({
       theme: {
