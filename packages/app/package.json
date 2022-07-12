@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@netlify/functions": "^1.0.0",
-    "@trpc/client": "^9.25.3",
     "@unocss/reset": "^0.43.2",
     "adm-zip": "^0.5.9",
     "busboy": "^1.6.0",
