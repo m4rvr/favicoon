@@ -39,6 +39,7 @@ const handler: Handler = async (event) => {
     }
   }
 
+  console.time('parse-files')
   const fields = await multipartParser.parse(event)
 
   if (!fields.files.length) {
@@ -48,7 +49,11 @@ const handler: Handler = async (event) => {
     }
   }
 
+  console.timeEnd('parse-files')
+
   const image = fields.files[0]
+
+  console.time('create-zip')
   const zip = new AdmZip()
 
   const filePromises = iconsMap.map(({ name, format, size }) => {
@@ -74,6 +79,8 @@ const handler: Handler = async (event) => {
   })
 
   await Promise.all(filePromises)
+
+  console.timeEnd('create-zip')
 
   return {
     statusCode: 200,
