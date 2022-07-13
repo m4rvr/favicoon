@@ -1,4 +1,4 @@
-import { type JSX } from 'solid-js'
+import { type JSX, Show, createSignal, onMount } from 'solid-js'
 import { Link } from 'solid-app-router'
 import Generator from '../components/Generator/index.js'
 import raccoon from '../assets/raccoon.png'
@@ -27,8 +27,13 @@ const donationButton = [
 ]
 
 export default function (): JSX.Element {
-  const randomButton =
-    donationButton[Math.floor(Math.random() * donationButton.length)]
+  const [randomButton, setRandomButton] = createSignal<any>()
+
+  onMount(() => {
+    setRandomButton(
+      donationButton[Math.floor(Math.random() * donationButton.length)]
+    )
+  })
 
   return (
     <div
@@ -44,15 +49,17 @@ export default function (): JSX.Element {
           <Link href="/" class="font-medium text-lg flex items-center gap-1">
             <img src={raccoon} class="w-8" /> favicoon
           </Link>
-          <a
-            href="https://www.buymeacoffee.com/m4rvr"
-            target="_blank"
-            title="Buy me a pizza"
-            class="inline-block shadow-lg gap-1 shadow-yellow-100 rounded-lg px-4 py-2 bg-yellow-400 text-neutral-800 font-medium transition-transform hover:scale-103"
-          >
-            {randomButton.emoji}{' '}
-            <span class="text-sm">{randomButton.text}</span>
-          </a>
+          <Show when={randomButton()}>
+            <a
+              href="https://www.buymeacoffee.com/m4rvr"
+              target="_blank"
+              title="Buy me a pizza"
+              class="inline-block shadow-lg gap-1 shadow-yellow-100 rounded-lg px-4 py-2 bg-yellow-400 text-neutral-800 font-medium transition-transform hover:scale-103"
+            >
+              {randomButton()!.emoji}{' '}
+              <span class="text-sm">{randomButton()!.text}</span>
+            </a>
+          </Show>
         </div>
         <h1 class="absolute text-lg font-medium top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           Favicon Generator
