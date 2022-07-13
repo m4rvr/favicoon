@@ -3,7 +3,33 @@ import { Link } from 'solid-app-router'
 import Generator from '../components/Generator/index.js'
 import raccoon from '../assets/raccoon.png'
 
+const donationButton = [
+  {
+    emoji: '🍫',
+    text: 'Buy me Chocolate'
+  },
+  {
+    emoji: '🍕',
+    text: 'Buy me a Pizza'
+  },
+  {
+    emoji: '🍵',
+    text: 'Buy me a Tea'
+  },
+  {
+    emoji: '🍰',
+    text: 'Buy me a Cake'
+  },
+  {
+    emoji: '🥑',
+    text: 'Buy me an Avocado'
+  }
+]
+
 export default function (): JSX.Element {
+  const randomButton =
+    donationButton[Math.floor(Math.random() * donationButton.length)]
+
   return (
     <div
       class="font-base text-neutral-700 h-screen pt-24"
@@ -22,9 +48,10 @@ export default function (): JSX.Element {
             href="https://www.buymeacoffee.com/m4rvr"
             target="_blank"
             title="Buy me a pizza"
-            class="inline-block shadow-lg shadow-yellow-100 rounded-lg px-4 py-2 bg-yellow-400 text-neutral-800 text-sm font-medium transition-transform hover:scale-103"
+            class="inline-block shadow-lg gap-1 shadow-yellow-100 rounded-lg px-4 py-2 bg-yellow-400 text-neutral-800 font-medium transition-transform hover:scale-103"
           >
-            🍕 Buy me a Pizza
+            {randomButton.emoji}{' '}
+            <span class="text-sm">{randomButton.text}</span>
           </a>
         </div>
         <h1 class="absolute text-lg font-medium top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
