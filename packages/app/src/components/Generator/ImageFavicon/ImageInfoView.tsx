@@ -195,9 +195,21 @@ export default function (): JSX.Element {
             <div class="flex flex-col items-center gap-4">
               <div class="w-[310px] relative flex-shrink-0">
                 <img src={chromeDark} />
+                <div class="absolute w-4 h-4 top-[17px] left-[88px] z-5 overflow-hidden aspect-square">
+                  <img
+                    src={state.uploadedImage?.base64}
+                    class="w-full h-full object-contain block"
+                  />
+                </div>
               </div>
               <div class="w-[310px] relative flex-shrink-0">
                 <img src={chromeLight} />
+                <div class="absolute w-4 h-4 top-[17px] left-[88px] z-5 overflow-hidden aspect-square">
+                  <img
+                    src={state.uploadedImage?.base64}
+                    class="w-full h-full object-contain block"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -232,12 +244,3 @@ export default function (): JSX.Element {
     </div>
   )
 }
-
-/*
-<img
-              src={state.generatedFiles!.appleTouchIcon!}
-              class="absolute top-[17px] left-[88px] z-5"
-              width="16"
-              height="16"
-            />
-*/
