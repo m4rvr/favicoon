@@ -14,11 +14,14 @@ export default function (): JSX.Element {
       }}
     >
       <header class="border-b border-slate-200 z-50 fixed top-0 left-0 w-full backdrop-blur bg-white/50">
-        <div class="h-16 p-4 flex items-center justify-between container mx-auto">
+        <div class="h-16 p-4 flex items-center justify-between container mx-auto z-10">
           <Link href="/" class="font-medium text-lg flex items-center gap-1">
             <img src={raccoon} class="w-8" /> favicoon
           </Link>
         </div>
+        <h1 class="absolute text-lg font-medium top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          Favicon Generator
+        </h1>
       </header>
       <Generator />
     </div>

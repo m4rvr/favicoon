@@ -28,7 +28,7 @@ const XIcon = () => (
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
-        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+        d="M6 18L18 6M6 6l12 12"
       />
     </svg>
   </div>
@@ -44,11 +44,7 @@ const CheckIcon = () => (
       stroke="currentColor"
       stroke-width="2"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
     </svg>
   </div>
 )
@@ -83,6 +79,7 @@ export default function (): JSX.Element {
   }
 
   const reuploadImage = () => {
+    if (isGenerating()) return
     setState('uploadedImage', null)
     setState('view', View.Upload)
   }
@@ -100,6 +97,7 @@ export default function (): JSX.Element {
 
   const generateFavicon = async () => {
     if (!state.uploadedImage) return
+    if (isGenerating()) return
     setIsGenerating(true)
     const formData = new FormData()
     formData.append('file', state.uploadedImage.file)
@@ -125,7 +123,109 @@ export default function (): JSX.Element {
   }
 
   return (
-    <div class="mx-auto w-full max-w-md flex flex-col justify-center items-center gap-4">
+    <div class="relative w-full max-w-4xl">
+      <div
+        class="flex flex-col items-center gap-4 w-full"
+        classList={{
+          'opacity-50': isGenerating()
+        }}
+      >
+        <div class="flex gap-14 w-full">
+          <div class="flex flex-col w-1/2">
+            <h2 class="font-medium text-center mb-4">Uploaded Image</h2>
+            <div class="flex flex-col items-center gap-4 justify-center h-full">
+              <div class="flex items-center gap-4">
+                <div class="rounded-xl w-16 aspect-square border shadow-lg shadow-neutral-200 bg-white border-neutral-200 overflow-hidden">
+                  <img
+                    src={state.uploadedImage?.base64}
+                    class="w-full h-full object-contain"
+                  />
+                </div>
+                <p class="flex flex-col">
+                  <span class="block font-medium">{formattedName()}</span>
+                  <span class="block text-neutral-400">
+                    {state.uploadedImage?.width}x{state.uploadedImage?.height}px
+                    | {formattedBytes()}
+                  </span>
+                </p>
+              </div>
+              <div class="flex gap-4 text-sm font-medium">
+                <div class="flex gap-1 items-center">
+                  <Show when={isSquare()} fallback={<XIcon />}>
+                    <CheckIcon />
+                  </Show>
+                  <span class="block">Square image</span>
+                </div>
+                <div class="flex gap-1 items-center">
+                  <Show when={isPngOrSvg()} fallback={<XIcon />}>
+                    <CheckIcon />
+                  </Show>
+                  <span class="block">PNG or SVG</span>
+                </div>
+                <div class="flex gap-1 items-center">
+                  <Show when={is512pxOrHigher()} fallback={<XIcon />}>
+                    <CheckIcon />
+                  </Show>
+                  <span class="block">512px or higher</span>
+                </div>
+              </div>
+              <p class="font-medium flex gap-1 text-sm items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                {infoMessage()}
+              </p>
+            </div>
+          </div>
+          <div class="w-1/2">
+            <h2 class="mb-4 font-medium text-center">Preview</h2>
+            <div class="bg-neutral-200 h-50" />
+          </div>
+        </div>
+        <div class="flex items-center mt-10">
+          <button
+            class="rounded-lg px-4 py-2 transition-transform"
+            classList={{
+              'hover:scale-103': !isGenerating()
+            }}
+            onClick={reuploadImage}
+            disabled={isGenerating()}
+          >
+            Re-upload image
+          </button>
+          <button
+            class="rounded-lg bg-neutral-900 text-white px-4 py-2 transition-[background-color,box-shadow,transform] transition-200 ease-in-out"
+            classList={{
+              'hover:bg-neutral-800 hover:shadow-lg hover:shadow-neutral-200 hover:scale-103':
+                !isGenerating(),
+              'animate-pulse': isGenerating()
+            }}
+            onClick={generateFavicon}
+            disabled={isGenerating()}
+          >
+            <Show when={isGenerating()} fallback={<>Generate Favicon</>}>
+              Generating 🤖...
+            </Show>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/*
+<div class="mx-auto w-full max-w-3xl flex flex-col justify-center items-center gap-4">
       <Show
         when={!isGenerating()}
         fallback={
@@ -184,5 +284,22 @@ export default function (): JSX.Element {
         </div>
       </Show>
     </div>
-  )
-}
+*/
+
+/*
+<div class="flex items-center gap-4">
+          <div class="rounded-xl w-20 aspect-square bg-white shadow-lg shadow-neutral-200 border border-neutral-200 overflow-hidden">
+            <img
+              src={state.uploadedImage?.base64}
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <p class="flex flex-col">
+            <span class="block font-medium">{formattedName()}</span>
+            <span class="block text-neutral-400">
+              {state.uploadedImage?.width}x{state.uploadedImage?.height}px |{' '}
+              {formattedBytes()}
+            </span>
+          </p>
+        </div>
+*/
