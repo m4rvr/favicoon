@@ -2,6 +2,8 @@ import { type JSX, Show, createSignal } from 'solid-js'
 import toast from 'solid-toast'
 import { View, useImageFavicon } from '../../../context/ImageFaviconContext.js'
 import { getGeneratedFiles } from '../../../utils.js'
+import chromeDark from '../../../assets/previews/chrome-dark.png'
+import chromeLight from '../../../assets/previews/chrome-light.png'
 
 const units = ['bytes', 'KB', 'MB']
 const niceBytes = (x: number) => {
@@ -190,7 +192,14 @@ export default function (): JSX.Element {
           </div>
           <div class="w-1/2">
             <h2 class="mb-4 font-medium text-center">Preview</h2>
-            <div class="bg-neutral-200 h-50" />
+            <div class="flex flex-col items-center gap-4">
+              <div class="w-[310px] relative flex-shrink-0">
+                <img src={chromeDark} />
+              </div>
+              <div class="w-[310px] relative flex-shrink-0">
+                <img src={chromeLight} />
+              </div>
+            </div>
           </div>
         </div>
         <div class="flex items-center mt-10">
@@ -225,81 +234,10 @@ export default function (): JSX.Element {
 }
 
 /*
-<div class="mx-auto w-full max-w-3xl flex flex-col justify-center items-center gap-4">
-      <Show
-        when={!isGenerating()}
-        fallback={
-          <p class="text-xl font-medium">Generating your favicon 🤖...</p>
-        }
-      >
-        <p class="font-medium text-lg mt-10 mb-4">{infoMessage()}</p>
-        <div class="w-full max-w-90 flex gap-4 items-center p-4 rounded-xl bg-white shadow-lg shadow-neutral-200">
-          <div class="rounded-xl w-16 aspect-square bg-white border border-neutral-200 overflow-hidden">
-            <img
-              src={state.uploadedImage?.base64}
-              class="w-full h-full object-contain"
+<img
+              src={state.generatedFiles!.appleTouchIcon!}
+              class="absolute top-[17px] left-[88px] z-5"
+              width="16"
+              height="16"
             />
-          </div>
-          <p class="flex flex-col">
-            <span class="block font-medium">{formattedName()}</span>
-            <span class="block text-neutral-400">
-              {state.uploadedImage?.width}x{state.uploadedImage?.height}px |{' '}
-              {formattedBytes()}
-            </span>
-          </p>
-        </div>
-        <div class="grid grid-cols-3 gap-10 mt-5">
-          <div class="flex flex-col items-center">
-            <Show when={isSquare()} fallback={<XIcon />}>
-              <CheckIcon />
-            </Show>
-            <span class="block font-medium mt-1">Square image</span>
-          </div>
-          <div class="flex flex-col items-center">
-            <Show when={isPngOrSvg()} fallback={<XIcon />}>
-              <CheckIcon />
-            </Show>
-            <span class="block font-medium mt-1">PNG or SVG</span>
-          </div>
-          <div class="flex flex-col items-center">
-            <Show when={is512pxOrHigher()} fallback={<XIcon />}>
-              <CheckIcon />
-            </Show>
-            <span class="block font-medium mt-1">512px or higher</span>
-          </div>
-        </div>
-        <div class="flex items-center mt-10">
-          <button
-            class="rounded-lg px-4 py-2 transition-transform hover:scale-103"
-            onClick={reuploadImage}
-          >
-            Re-upload image
-          </button>
-          <button
-            class="rounded-lg bg-neutral-900 text-white px-4 py-2 transition-[background-color,box-shadow,transform] transition-200 ease-in-out hover:bg-neutral-800 hover:shadow-lg hover:shadow-neutral-200 hover:scale-103"
-            onClick={generateFavicon}
-          >
-            Generate Favicon
-          </button>
-        </div>
-      </Show>
-    </div>
-*/
-
-/*
-<div class="flex items-center gap-4">
-          <div class="rounded-xl w-20 aspect-square bg-white shadow-lg shadow-neutral-200 border border-neutral-200 overflow-hidden">
-            <img
-              src={state.uploadedImage?.base64}
-              class="w-full h-full object-contain"
-            />
-          </div>
-          <p class="flex flex-col">
-            <span class="block font-medium">{formattedName()}</span>
-            <span class="block text-neutral-400">
-              {state.uploadedImage?.width}x{state.uploadedImage?.height}px |{' '}
-              {formattedBytes()}
-            </span>
-          </p>
-        </div>
 */

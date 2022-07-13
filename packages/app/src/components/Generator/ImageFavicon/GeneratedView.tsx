@@ -2,8 +2,6 @@ import { type JSX, createResource, onMount } from 'solid-js'
 import confetti from 'canvas-confetti'
 import { toast } from 'solid-toast'
 import { useImageFavicon } from '../../../context/ImageFaviconContext.js'
-import chromeDark from '../../../assets/previews/chrome-dark.png'
-import chromeLight from '../../../assets/previews/chrome-light.png'
 import { readFile } from '../../../utils.js'
 
 export default function (): JSX.Element {
@@ -43,33 +41,13 @@ export default function (): JSX.Element {
   }
 
   return (
-    <>
+    <div>
       <h3 class="mb-8 text-center font-semibold text-lg">
         Your favicon is ready!
       </h3>
       <div class="max-w-2xl mx-auto">
-        <div class="flex gap-4 items-center justify-center mb-4">
-          <div class="w-[310px] relative flex-shrink-0">
-            <img
-              src={state.generatedFiles!.appleTouchIcon!}
-              class="absolute top-[17px] left-[88px] z-5"
-              width="16"
-              height="16"
-            />
-            <img src={chromeDark} />
-          </div>
-          <div class="w-[310px] relative flex-shrink-0">
-            <img
-              src={state.generatedFiles!.appleTouchIcon!}
-              class="absolute top-[17px] left-[88px] z-5"
-              width="16"
-              height="16"
-            />
-            <img src={chromeLight} />
-          </div>
-        </div>
         <div
-          class="max-w-xl mx-auto mb-4 bg-slate-800 text-white p-4 rounded-xl overflow-auto relative group"
+          class="max-w-xl mx-auto mb-4 bg-neutral-800 text-white p-4 rounded-lg overflow-auto relative group"
           onClick={copyCode}
         >
           <pre class="text-sm font-mono">{codeToCopy}</pre>
@@ -90,7 +68,7 @@ export default function (): JSX.Element {
         </div>
         <a
           href={zipUrl()}
-          class="rounded-xl bg-blue-500 inline-block px-6 py-3 text-white transition-colors hover:bg-blue-600"
+          class="rounded-lg bg-neutral-900 inline-block px-6 py-3 text-white transition-colors hover:bg-neutral-800"
           download={'favicons.zip'}
         >
           Download Favicon
@@ -100,6 +78,6 @@ export default function (): JSX.Element {
         ref={canvasRef}
         class="pointer-events-none fixed top-0 left-0 w-full h-full z-100"
       />
-    </>
+    </div>
   )
 }

@@ -18,12 +18,28 @@ export default function (): JSX.Element {
           <Link href="/" class="font-medium text-lg flex items-center gap-1">
             <img src={raccoon} class="w-8" /> favicoon
           </Link>
+          <a
+            href="https://www.buymeacoffee.com/m4rvr"
+            target="_blank"
+            title="Buy me a pizza"
+            class="inline-block shadow-lg shadow-yellow-100 rounded-lg px-4 py-2 bg-yellow-400 text-neutral-800 text-sm font-medium transition-transform hover:scale-103"
+          >
+            🍕 Buy me a Pizza
+          </a>
         </div>
         <h1 class="absolute text-lg font-medium top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           Favicon Generator
         </h1>
       </header>
       <Generator />
+      <footer>
+        <div class="container mx-auto p-4 text-center font-medium text-sm">
+          Made with ❤️ by{' '}
+          <a href="https://twitter.com/marvr_" target="_blank">
+            @marvr_
+          </a>
+        </div>
+      </footer>
     </div>
   )
 }
