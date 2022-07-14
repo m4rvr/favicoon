@@ -1,8 +1,8 @@
 import { type JSX, Show, createEffect, createResource, onMount } from 'solid-js'
 import confetti from 'canvas-confetti'
 import { toast } from 'solid-toast'
-import { getHighlighter } from 'shiki'
 import { useImageFavicon } from '../../../context/ImageFaviconContext.js'
+import { useHighlighter } from '../../../context/HighlighterContext'
 import { readFile } from '../../../utils.js'
 
 export default function (): JSX.Element {
@@ -15,9 +15,7 @@ export default function (): JSX.Element {
     return url
   })
 
-  const [highlighter] = createResource(async () =>
-    getHighlighter({ theme: 'github-dark' })
-  )
+  const highlighter = useHighlighter()
 
   const codeToCopy = `<link rel="icon" href="/favicon.ico" sizes="any" />${
     state.generatedFiles?.hasSvg
