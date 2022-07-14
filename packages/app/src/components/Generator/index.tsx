@@ -1,6 +1,5 @@
 import { For, type JSX, Show, Suspense, createSignal, lazy } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
-import HighlighterProvider from '../../context/HighlighterContext.js'
 
 enum View {
   Image,
@@ -75,9 +74,7 @@ export default function (): JSX.Element {
       </div>
       <div class="h-full flex items-center justify-center">
         <Suspense fallback={<p class="text-lg font-medium">Loading...</p>}>
-          <HighlighterProvider>
-            <Dynamic component={views[view()]} />
-          </HighlighterProvider>
+          <Dynamic component={views[view()]} />
         </Suspense>
       </div>
     </div>

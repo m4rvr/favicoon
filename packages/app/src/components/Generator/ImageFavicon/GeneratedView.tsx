@@ -29,9 +29,7 @@ export default function (): JSX.Element {
     if (!highlighter()) return
 
     if (codeRef) {
-      codeRef.innerHTML = highlighter()!.codeToHtml(codeToCopy, {
-        lang: 'html'
-      })
+      codeRef.innerHTML = ''
       codeRef
         .querySelector('.shiki')
         ?.classList.add('p-4', 'rounded-lg', 'text-sm')
