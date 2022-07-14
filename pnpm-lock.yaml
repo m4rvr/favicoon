@@ -82,7 +82,6 @@ importers:
       '@babel/core': ^7.18.6
       '@babel/preset-env': ^7.18.6
       '@netlify/functions': ^1.0.0
-      '@squoosh/lib': ^0.4.0
       '@types/adm-zip': ^0.5.0
       '@types/busboy': ^1.5.0
       '@types/canvas-confetti': ^1.4.2
@@ -98,6 +97,7 @@ importers:
       node-fetch: ^3.2.6
       png-to-ico: ^2.1.4
       sharp: ^0.30.7
+      shiki: ^0.10.1
       solid-app-router: ^0.4.1
       solid-js: ^1.4.6
       solid-meta: ^0.27.5
@@ -109,7 +109,6 @@ importers:
       vite: ^2.9.13
     dependencies:
       '@netlify/functions': 1.0.0
-      '@squoosh/lib': 0.4.0
       '@unocss/reset': 0.43.2
       adm-zip: 0.5.9
       busboy: 1.6.0
@@ -121,6 +120,7 @@ importers:
       node-fetch: 3.2.7
       png-to-ico: 2.1.4
       sharp: 0.30.7
+      shiki: 0.10.1
     devDependencies:
       '@babel/core': 7.18.6
       '@babel/preset-env': 7.18.6_@babel+core@7.18.6
@@ -2230,14 +2230,6 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
-
-  /@squoosh/lib/0.4.0:
-    resolution: {integrity: sha512-O1LyugWLZjMI4JZeZMA5vzfhfPjfMZXH5/HmVkRagP8B70wH3uoR7tjxfGNdSavey357MwL8YJDxbGwBBdHp7Q==}
-    engines: {node: ' ^12.5.0 || ^14.0.0 || ^16.0.0 '}
-    dependencies:
-      wasm-feature-detect: 1.2.11
-      web-streams-polyfill: 3.2.1
-    dev: false
 
   /@trpc/server/9.25.3:
     resolution: {integrity: sha512-1LEURCmSGpxx8/0ZtzMpd0hiSB4xGNKJ9DKq6sbPk+bzdACjH9Ujdwca4P6ylxa8HdMel/effwjlCG0Tfx06Lg==}
@@ -5209,6 +5201,10 @@ packages:
       semver: 7.3.7
     dev: true
 
+  /jsonc-parser/3.1.0:
+    resolution: {integrity: sha512-DRf0QjnNeCUds3xTjKlQQ3DpJD51GvDjJfnxUVWg6PZTo2otSm+slzNAxU/35hF8/oJIKoG9slq30JYOsF2azg==}
+    dev: false
+
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
     dependencies:
@@ -6723,6 +6719,14 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /shiki/0.10.1:
+    resolution: {integrity: sha512-VsY7QJVzU51j5o1+DguUd+6vmCmZ5v/6gYu4vyYAhzjuNQU6P/vmSy4uQaOhvje031qQMiW0d2BwgMH52vqMng==}
+    dependencies:
+      jsonc-parser: 3.1.0
+      vscode-oniguruma: 1.6.2
+      vscode-textmate: 5.2.0
+    dev: false
+
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
@@ -7790,8 +7794,12 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /wasm-feature-detect/1.2.11:
-    resolution: {integrity: sha512-HUqwaodrQGaZgz1lZaNioIkog9tkeEJjrM3eq4aUL04whXOVDRc/o2EGb/8kV0QX411iAYWEqq7fMBmJ6dKS6w==}
+  /vscode-oniguruma/1.6.2:
+    resolution: {integrity: sha512-KH8+KKov5eS/9WhofZR8M8dMHWN2gTxjMsG4jd04YhpbPR91fUj7rYQ2/XjeHCJWbg7X++ApRIU9NUwM2vTvLA==}
+    dev: false
+
+  /vscode-textmate/5.2.0:
+    resolution: {integrity: sha512-Uw5ooOQxRASHgu6C7GVvUxisKXfSgW4oFlO+aa+PAkgmH89O3CXxEEzNRNtHSqtXFTl0nAC1uYj0GMSH27uwtQ==}
     dev: false
 
   /web-streams-polyfill/3.2.1:

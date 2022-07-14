@@ -1,7 +1,7 @@
 import { type JSX, Show, createSignal, onMount } from 'solid-js'
 import { Link } from 'solid-app-router'
 import Generator from '../components/Generator/index.js'
-import raccoon from '../assets/raccoon.png'
+import favicoon from '../assets/favicoon.png'
 
 const donationButton = [
   {
@@ -51,7 +51,7 @@ Check it out here: https://favicoon.netlify.app 🚀`)
       <header class="border-b border-slate-200 z-50 fixed top-0 left-0 w-full backdrop-blur bg-white/50">
         <div class="h-16 p-4 flex items-center justify-between container mx-auto z-10">
           <Link href="/" class="font-medium text-lg flex items-center gap-1">
-            <img src={raccoon} class="w-8" /> favicoon
+            <img src={favicoon} class="w-9" /> favicoon
           </Link>
           <Show when={randomButton()}>
             <div class="flex items-center gap-3">

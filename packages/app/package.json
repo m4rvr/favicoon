@@ -20,7 +20,8 @@
     "magic-bytes.js": "^1.0.12",
     "node-fetch": "^3.2.6",
     "png-to-ico": "^2.1.4",
-    "sharp": "^0.30.7"
+    "sharp": "^0.30.7",
+    "shiki": "^0.10.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",
