@@ -1,7 +1,7 @@
 import { type JSX, Show, createEffect, createResource, onMount } from 'solid-js'
 import confetti from 'canvas-confetti'
 import { toast } from 'solid-toast'
-import { getHighlighter, setCDN } from 'shiki'
+import { getHighlighter } from 'shiki'
 import { useImageFavicon } from '../../../context/ImageFaviconContext.js'
 import { readFile } from '../../../utils.js'
 
@@ -14,8 +14,6 @@ export default function (): JSX.Element {
     const url = await readFile(state.zipBlob)
     return url
   })
-
-  setCDN('https://unpkg.com/shiki/')
 
   const [highlighter] = createResource(async () =>
     getHighlighter({ theme: 'github-dark' })
