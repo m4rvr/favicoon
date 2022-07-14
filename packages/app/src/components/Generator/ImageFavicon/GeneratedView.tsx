@@ -15,10 +15,11 @@ export default function (): JSX.Element {
     return url
   })
 
-  const [highlighter] = createResource(async () => {
-    setCDN('https://unpkg.com/shiki/')
-    return getHighlighter({ theme: 'github-dark' })
-  })
+  setCDN('https://unpkg.com/shiki/')
+
+  const [highlighter] = createResource(async () =>
+    getHighlighter({ theme: 'github-dark' })
+  )
 
   const codeToCopy = `<link rel="icon" href="/favicon.ico" sizes="any" />${
     state.generatedFiles?.hasSvg
