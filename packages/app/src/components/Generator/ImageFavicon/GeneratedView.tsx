@@ -16,7 +16,7 @@ export default function (): JSX.Element {
   })
 
   const [highlighter] = createResource(async () => {
-    setCDN('/node_modules/shiki/')
+    setCDN('https://unpkg.com/shiki/')
     return getHighlighter({ theme: 'github-dark' })
   })
 
