@@ -75,7 +75,9 @@ export default function (): JSX.Element {
       </div>
       <div class="h-full flex items-center justify-center">
         <Suspense fallback={<p class="text-lg font-medium">Loading...</p>}>
-          <Dynamic component={views[view()]} />
+          <HighlighterProvider>
+            <Dynamic component={views[view()]} />
+          </HighlighterProvider>
         </Suspense>
       </div>
     </div>

@@ -87,6 +87,7 @@ importers:
       '@types/canvas-confetti': ^1.4.2
       '@types/sharp': ^0.30.4
       '@unocss/reset': ^0.43.2
+      '@wooorm/starry-night': ^1.2.0
       adm-zip: ^0.5.9
       busboy: ^1.6.0
       canvas-confetti: ^1.5.1
@@ -110,6 +111,7 @@ importers:
     dependencies:
       '@netlify/functions': 1.0.0
       '@unocss/reset': 0.43.2
+      '@wooorm/starry-night': 1.2.0
       adm-zip: 0.5.9
       busboy: 1.6.0
       canvas-confetti: 1.5.1
@@ -2283,6 +2285,12 @@ packages:
     dev: true
     optional: true
 
+  /@types/hast/2.3.4:
+    resolution: {integrity: sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==}
+    dependencies:
+      '@types/unist': 2.0.6
+    dev: false
+
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
@@ -2339,7 +2347,6 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
-    dev: true
 
   /@types/yauzl/2.10.0:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
@@ -2607,6 +2614,15 @@ packages:
       magic-string: 0.26.2
       vite: 2.9.14
     dev: true
+
+  /@wooorm/starry-night/1.2.0:
+    resolution: {integrity: sha512-/D17IKC+sjN+EGa9ISlti2ClFeBAeyM5mSXwl4GsP7O9IxDwX1lDHNSrdNsDJRcKPq6KY9yN40p6b7m5q7YUGA==}
+    dependencies:
+      '@types/hast': 2.3.4
+      import-meta-resolve: 2.0.3
+      vscode-oniguruma: 1.6.2
+      vscode-textmate: 7.0.1
+    dev: false
 
   /JSONStream/1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -2968,7 +2984,6 @@ packages:
     resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
     dependencies:
       semver: 7.3.7
-    dev: true
 
   /bundle-require/3.0.4_esbuild@0.14.49:
     resolution: {integrity: sha512-VXG6epB1yrLAvWVQpl92qF347/UXmncQj7J3U8kZEbdVZ1ZkQyr4hYeL/9RvcE8vVVdp53dY78Fd/3pqfRqI1A==}
@@ -4860,6 +4875,12 @@ packages:
       parent-module: 1.0.1
       resolve-from: 4.0.0
     dev: true
+
+  /import-meta-resolve/2.0.3:
+    resolution: {integrity: sha512-fpAppnBpZ3ymQ/dPP97TNsco1HB5+V9SYJ3chY50PP8xn4U/w+Y6ovWBmTImB/prmGsTjzPh8pQYY+EVBlr9mw==}
+    dependencies:
+      builtins: 5.0.1
+    dev: false
 
   /imurmurhash/0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
@@ -7800,6 +7821,10 @@ packages:
 
   /vscode-textmate/5.2.0:
     resolution: {integrity: sha512-Uw5ooOQxRASHgu6C7GVvUxisKXfSgW4oFlO+aa+PAkgmH89O3CXxEEzNRNtHSqtXFTl0nAC1uYj0GMSH27uwtQ==}
+    dev: false
+
+  /vscode-textmate/7.0.1:
+    resolution: {integrity: sha512-zQ5U/nuXAAMsh691FtV0wPz89nSkHbs+IQV8FDk+wew9BlSDhf4UmWGlWJfTR2Ti6xZv87Tj5fENzKf6Qk7aLw==}
     dev: false
 
   /web-streams-polyfill/3.2.1:

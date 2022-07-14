@@ -4,24 +4,20 @@ import {
   type JSX,
   type ParentProps,
   createContext,
-  createSignal,
+  createResource,
   useContext
 } from 'solid-js'
-import { type Highlighter, getHighlighter, setCDN } from 'shiki'
+import { common, createStarryNight } from '@wooorm/starry-night'
 
-type HighlighterContextType = Accessor<Highlighter | undefined>
+type StarryNight = Awaited<ReturnType<typeof createStarryNight>>
+
+type HighlighterContextType = Accessor<StarryNight | undefined>
 
 const HighlighterContext = createContext<HighlighterContextType>()
 
 export default function (props: ParentProps): JSX.Element {
-  setCDN('https://unpkg.com/shiki/')
-  const [highlighter, setHighlighter] = createSignal<Highlighter>()
-
-  getHighlighter({ theme: 'github-dark' }).then((highlighter) => {
-    setHighlighter(highlighter)
-  })
-
-  const context: HighlighterContextType = highlighter
+  const [highlighter] = createResource(() => createStarryNight(common))
+  const context: HighlighterContextType = () => highlighter()
 
   return (
     <HighlighterContext.Provider value={context}>
