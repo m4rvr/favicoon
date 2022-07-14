@@ -3,7 +3,6 @@ import { Link } from 'solid-app-router'
 import { Link as HeadLink, Title } from 'solid-meta'
 import Generator from '../components/Generator/index.js'
 import favicoon from '../assets/favicoon.png'
-import HighlighterProvider from '../context/HighlighterContext.js'
 
 const donationButton = [
   {
@@ -94,9 +93,7 @@ Check it out here: https://favicoon.netlify.app 🚀`)
             Favicon Generator
           </h1>
         </header>
-        <HighlighterProvider>
-          <Generator />
-        </HighlighterProvider>
+        <Generator />
         <footer>
           <div class="container mx-auto p-4 text-center font-medium text-sm">
             Made with ❤️ by{' '}

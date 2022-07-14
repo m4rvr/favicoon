@@ -1,21 +1,20 @@
-import { type JSX, Show, createEffect, createResource, onMount } from 'solid-js'
+import { type JSX, Show, createResource, onMount } from 'solid-js'
 import confetti from 'canvas-confetti'
 import { toast } from 'solid-toast'
+import hjs from 'highlight.js'
 import { useImageFavicon } from '../../../context/ImageFaviconContext.js'
-import { useHighlighter } from '../../../context/HighlighterContext'
 import { readFile } from '../../../utils.js'
+import '../../../assets/code-theme.css'
 
 export default function (): JSX.Element {
   let canvasRef: HTMLCanvasElement | undefined
-  let codeRef: HTMLDivElement | undefined
+  let codeRef: HTMLPreElement | undefined
   const [state] = useImageFavicon()
   const [zipUrl] = createResource(async () => {
     if (!state.zipBlob) return
     const url = await readFile(state.zipBlob)
     return url
   })
-
-  const highlighter = useHighlighter()
 
   const codeToCopy = `<link rel="icon" href="/favicon.ico" sizes="any" />${
     state.generatedFiles?.hasSvg
@@ -24,17 +23,6 @@ export default function (): JSX.Element {
   }
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/manifest.webmanifest" />`
-
-  createEffect(() => {
-    if (!highlighter()) return
-
-    if (codeRef) {
-      codeRef.innerHTML = ''
-      codeRef
-        .querySelector('.shiki')
-        ?.classList.add('p-4', 'rounded-lg', 'text-sm')
-    }
-  })
 
   onMount(() => {
     if (canvasRef) {
@@ -48,6 +36,14 @@ export default function (): JSX.Element {
         spread: 180
       })
     }
+
+    if (codeRef) {
+      const code = hjs.highlight(codeToCopy, {
+        language: 'html'
+      }).value
+
+      codeRef.innerHTML = code
+    }
   })
 
   const copyCode = async () => {
@@ -56,7 +52,7 @@ export default function (): JSX.Element {
   }
 
   return (
-    <Show when={highlighter()}>
+    <Show when={true}>
       <div>
         <h3 class="mb-8 text-center font-semibold text-lg">
           Your favicon is ready!
@@ -66,7 +62,7 @@ export default function (): JSX.Element {
             class="max-w-xl mx-auto mb-4 overflow-auto relative group text-white"
             onClick={copyCode}
           >
-            <div ref={codeRef} />
+            <pre ref={codeRef} class="bg-[#24292F] p-4 rounded-lg text-sm" />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5 absolute z-5 top-0 right-0 m-2.5 opacity-0 transition-opacity group-hover:opacity-70"
