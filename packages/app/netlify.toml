@@ -1,7 +1,13 @@
 [[redirects]]
   from = "/"
-  to = "/favicon-generator"
+  to = "/favicon-generator/image"
   status = 302
+  force = true
+
+[[redirects]]
+  from = "/favicon-generator"
+  to = "/favicon-generator/image"
+  status = 301
   force = true
 
 [[redirects]]
