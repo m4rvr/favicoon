@@ -1,10 +1,10 @@
 // @refresh reload
-import { Links, Meta, Routes, Scripts } from 'solid-start/root'
-import { ErrorBoundary } from 'solid-start/error-boundary'
-import { Suspense } from 'solid-js'
 import 'uno.css'
 import '@unocss/reset/tailwind.css'
 import './assets/fonts.css'
+import { Links, Meta, Routes, Scripts } from 'solid-start/root'
+import { ErrorBoundary } from 'solid-start/error-boundary'
+import { Suspense } from 'solid-js'
 import { Toaster } from 'solid-toast'
 
 export default function Root() {
