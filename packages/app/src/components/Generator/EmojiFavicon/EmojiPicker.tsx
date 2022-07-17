@@ -28,7 +28,7 @@ export default function (props: Props): JSX.Element {
       <For each={emojis}>
         {(emoji) => (
           <button
-            class="w-10 h-10 bg-white rounded-lg border border-neutral-200 p-1 shadow-lg shadow-neutral-200 transition-transform hover:scale-105"
+            class="w-8 h-8 bg-white rounded-lg border border-neutral-200 p-1 shadow-lg shadow-neutral-200 transition-transform hover:scale-105"
             onClick={selectEmoji}
           >
             {emoji}

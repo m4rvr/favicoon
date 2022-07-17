@@ -7,7 +7,7 @@ export default function (): JSX.Element {
 
   const generateFavicon = async () => {
     const formData = new FormData()
-    formData.append('file', state.emoji!)
+    formData.append('file', state.emoji.blob!)
 
     const data = await fetch('/api/generate-favicon', {
       method: 'POST',

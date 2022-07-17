@@ -8,9 +8,15 @@ export enum View {
   Generated
 }
 
+interface EmojiState {
+  blob: Blob | null
+  scale: number
+  rotation: number
+}
+
 interface State {
   view: View
-  emoji: Blob | null
+  emoji: EmojiState
   zipBlob: Blob | null
 }
 
@@ -26,7 +32,11 @@ const EmojiFaviconContext = createContext<EmojiFaviconContextType>()
 export default function (props: ParentProps): JSX.Element {
   const [state, setState] = createStore<State>({
     view: View.Selection,
-    emoji: null,
+    emoji: {
+      blob: null,
+      scale: 1,
+      rotation: 0
+    },
     zipBlob: null
   })
 
