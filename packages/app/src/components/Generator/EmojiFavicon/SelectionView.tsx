@@ -1,10 +1,12 @@
-import { type JSX, createSignal, onMount } from 'solid-js'
+import { type JSX, Show, createSignal, onMount } from 'solid-js'
 import { View, useEmojiFavicon } from '../../../context/EmojiFaviconContext.js'
 import EmojiPicker from './EmojiPicker.js'
 
 export default function (): JSX.Element {
   let canvasRef: HTMLCanvasElement | undefined
   let previewCanvasRef: HTMLCanvasElement | undefined
+  let scaleInputRef: HTMLInputElement | undefined
+  let rotationInputRef: HTMLInputElement | undefined
   let context: CanvasRenderingContext2D | null
   let previewContext: CanvasRenderingContext2D | null
   let pixelRatio = 1
@@ -125,6 +127,14 @@ export default function (): JSX.Element {
     drawPreviewEmoji()
   }
 
+  const reset = () => {
+    scaleInputRef!.value = '1'
+    rotationInputRef!.value = '0'
+    setState('emoji', (emoji) => ({ ...emoji, scale: 1, rotation: 0 }))
+    drawEmoji()
+    drawPreviewEmoji()
+  }
+
   const continueWithEmoji = () => {
     canvasRef!.toBlob((blob) => {
       setState('emoji', (emoji) => ({ ...emoji, blob }))
@@ -137,7 +147,7 @@ export default function (): JSX.Element {
       <div class="grid grid-cols-2 gap-4">
         <div class="flex flex-col items-center">
           <h2 class="mb-4 text-center font-medium">Preview</h2>
-          <div class="border border-neutral-200 rounded-lg bg-white shadow-lg shadow-neutral-200">
+          <div class="border border-neutral-200 rounded-lg bg-white shadow-lg relative shadow-neutral-200">
             <canvas
               ref={previewCanvasRef}
               style={{
@@ -145,9 +155,15 @@ export default function (): JSX.Element {
                 height: '80px'
               }}
             />
+            <Show when={!selectedEmojiImage()}>
+              <p class="absolute top-0 left-0 w-full z-10 text-sm font-medium flex items-center justify-center h-full opacity-50 text-center p-4">
+                Select your emoji
+              </p>
+            </Show>
           </div>
           <p class="mt-4">Scale</p>
           <input
+            ref={scaleInputRef}
             type="range"
             min="0.5"
             max="1"
@@ -155,9 +171,11 @@ export default function (): JSX.Element {
             step="0.01"
             onInput={onScaleChange}
             class="mt-1"
+            disabled={!selectedEmojiImage()}
           />
           <p class="mt-4">Rotation</p>
           <input
+            ref={rotationInputRef}
             type="range"
             min="-180"
             max="180"
@@ -165,6 +183,7 @@ export default function (): JSX.Element {
             step="1"
             onInput={onRotationChange}
             class="mt-1"
+            disabled={!selectedEmojiImage()}
           />
         </div>
         <div class="flex flex-col items-center">
@@ -172,7 +191,18 @@ export default function (): JSX.Element {
           <EmojiPicker onEmojiSelect={onEmojiSelect} />
         </div>
       </div>
-      <div class="flex justify-center mt-10">
+      <div class="flex justify-center mt-10 gap-4">
+        <button
+          class="px-4 py-2 rounded-lg"
+          classList={{
+            'transition-transform hover:scale-103': !!selectedEmojiImage(),
+            'opacity-50': !selectedEmojiImage()
+          }}
+          onClick={reset}
+          disabled={!selectedEmojiImage()}
+        >
+          Reset settings
+        </button>
         <button
           class="bg-neutral-900 text-white px-4 py-2 rounded-lg"
           classList={{

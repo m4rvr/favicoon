@@ -1,7 +1,67 @@
-import { For, type JSX, onMount } from 'solid-js'
+import { For, type JSX, createSignal, onMount } from 'solid-js'
 import twemoji from 'twemoji'
 
-const emojis = ['🌟', '🥑', '👽', '🍕', '🦊']
+const emojiCategories = [
+  {
+    name: 'Animals',
+    isParsed: false,
+    emojis: [
+      '🐶',
+      '🐱',
+      '🐭',
+      '🐹',
+      '🐰',
+      '🦊',
+      '🐻',
+      '🐼',
+      '🐨',
+      '🐯',
+      '🦁',
+      '🐮',
+      '🐸',
+      '🦁',
+      '🐥',
+      '🦕',
+      '🐢',
+      '🦖',
+      '🐙',
+      '🐳',
+      '🦋',
+      '🐝',
+      '🦄',
+      '🐷',
+      '🐯',
+      '🐨'
+    ]
+  },
+  {
+    name: 'Food',
+    isParsed: false,
+    emojis: [
+      '🍏',
+      '🍌',
+      '🍉',
+      '🍋',
+      '🍒',
+      '🥑',
+      '🥦',
+      '🥕',
+      '🍕',
+      '🍔',
+      '🍟',
+      '🍫',
+      '🍪',
+      '🍯',
+      '🥞',
+      '🧀',
+      '🌶',
+      '🍍',
+      '🥝',
+      '🍓',
+      '🥥'
+    ]
+  }
+]
 
 interface Props {
   onEmojiSelect: (img: HTMLImageElement) => void
@@ -9,11 +69,16 @@ interface Props {
 
 export default function (props: Props): JSX.Element {
   let pickerRef: HTMLDivElement | undefined
+  const [selectedCategory, setSelectedCategory] = createSignal(0)
+  const emojis = () => emojiCategories[selectedCategory()].emojis
+
+  const parseEmojis = () =>
+    !emojiCategories[selectedCategory()].isParsed &&
+    pickerRef &&
+    twemoji.parse(pickerRef, { ext: '.svg', folder: 'svg' })
 
   onMount(() => {
-    if (pickerRef) {
-      twemoji.parse(pickerRef, { ext: '.svg', folder: 'svg' })
-    }
+    parseEmojis()
   })
 
   const selectEmoji = (event: MouseEvent) => {
@@ -23,18 +88,34 @@ export default function (props: Props): JSX.Element {
     props.onEmojiSelect(img)
   }
 
+  const onCategoryChange = (event: Event) => {
+    const index = parseInt((event.target as HTMLSelectElement).value)
+    setSelectedCategory(index)
+    parseEmojis()
+  }
+
   return (
-    <div ref={pickerRef} class="grid grid-cols-5 mx-auto gap-2">
-      <For each={emojis}>
-        {(emoji) => (
-          <button
-            class="w-8 h-8 bg-white rounded-lg border border-neutral-200 p-1 shadow-lg shadow-neutral-200 transition-transform hover:scale-105"
-            onClick={selectEmoji}
-          >
-            {emoji}
-          </button>
-        )}
-      </For>
-    </div>
+    <>
+      <select class="mb-4" onChange={onCategoryChange}>
+        <For each={emojiCategories}>
+          {(category, i) => <option value={i()}>{category.name}</option>}
+        </For>
+      </select>
+      <div
+        ref={pickerRef}
+        class="grid grid-cols-5 mx-auto gap-2 overflow-y-auto max-h-50 p-2"
+      >
+        <For each={emojis()}>
+          {(emoji) => (
+            <button
+              class="w-8 h-8 bg-white rounded-lg border border-neutral-200 p-1 shadow-lg shadow-neutral-200 transition-transform hover:scale-105"
+              onClick={selectEmoji}
+            >
+              {emoji}
+            </button>
+          )}
+        </For>
+      </div>
+    </>
   )
 }
