@@ -1,8 +1,6 @@
 import { For, type JSX, createSignal, onMount } from 'solid-js'
 import twemoji from 'twemoji'
-import data from 'emoji-datasource/emoji.json'
-
-console.log(data)
+// import data from 'emoji-datasource/emoji.json'
 
 const emojiCategories = [
   {
