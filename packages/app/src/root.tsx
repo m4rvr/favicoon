@@ -40,3 +40,43 @@ export default function Root() {
     </html>
   )
 }
+
+/* function loadEmojis() {
+  const emojiCategories = []
+  let currentCategoryIndex = 0
+
+  const script = document.createElement('script')
+  script.onload = () => {
+    for (const row of document.querySelectorAll('table[border="1"] tbody tr')) {
+      const categoryRow = row.querySelector('.bighead')
+      const codeTd = row.querySelector('td.code')
+
+      if (categoryRow) {
+        emojiCategories.push({
+          name: categoryRow.textContent,
+          emojis: [],
+          isParsed: true
+        })
+        currentCategoryIndex = emojiCategories.length - 1
+      } else if (codeTd) {
+        let parsedEmoji = ''
+
+        codeTd.textContent
+          .trim()
+          .split(' ')
+          .forEach((unicode) => {
+            parsedEmoji += twemoji.convert.fromCodePoint(
+              unicode.replace('U+', '')
+            )
+          })
+
+        emojiCategories[currentCategoryIndex].emojis.push(parsedEmoji)
+      }
+    }
+
+    console.log(emojiCategories)
+  }
+
+  document.head.appendChild(script).src =
+    'https://twemoji.maxcdn.com/v/latest/twemoji.min.js'
+} */

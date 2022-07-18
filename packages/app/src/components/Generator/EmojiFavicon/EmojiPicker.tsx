@@ -1,69 +1,6 @@
 import { For, type JSX, createSignal, onMount } from 'solid-js'
 import twemoji from 'twemoji'
-// import data from 'emoji-datasource/emoji.json'
-
-const emojiCategories = [
-  {
-    name: 'Animals',
-    isParsed: false,
-    emojis: [
-      '\u1F6AA',
-      '🐶',
-      '🐱',
-      '🐭',
-      '🐹',
-      '🐰',
-      '🦊',
-      '🐻',
-      '🐼',
-      '🐨',
-      '🐯',
-      '🦁',
-      '🐮',
-      '🐸',
-      '🦁',
-      '🐥',
-      '🦕',
-      '🐢',
-      '🦖',
-      '🐙',
-      '🐳',
-      '🦋',
-      '🐝',
-      '🦄',
-      '🐷',
-      '🐯',
-      '🐨'
-    ]
-  },
-  {
-    name: 'Food',
-    isParsed: false,
-    emojis: [
-      '🍏',
-      '🍌',
-      '🍉',
-      '🍋',
-      '🍒',
-      '🥑',
-      '🥦',
-      '🥕',
-      '🍕',
-      '🍔',
-      '🍟',
-      '🍫',
-      '🍪',
-      '🍯',
-      '🥞',
-      '🧀',
-      '🌶',
-      '🍍',
-      '🥝',
-      '🍓',
-      '🥥'
-    ]
-  }
-]
+import { emojiCategories } from './emoji-data.js'
 
 interface Props {
   onEmojiSelect: (img: HTMLImageElement) => void
@@ -74,10 +11,19 @@ export default function (props: Props): JSX.Element {
   const [selectedCategory, setSelectedCategory] = createSignal(0)
   const emojis = () => emojiCategories[selectedCategory()].emojis
 
-  const parseEmojis = () =>
+  const parseEmojis = () => {
     !emojiCategories[selectedCategory()].isParsed &&
-    pickerRef &&
-    twemoji.parse(pickerRef, { ext: '.svg', folder: 'svg' })
+      pickerRef &&
+      twemoji.parse(pickerRef, { ext: '.svg', folder: 'svg' })
+
+    pickerRef?.querySelectorAll('button').forEach((button) => {
+      const img = button.querySelectorAll('img')
+
+      if (img.length > 1) {
+        img[1].remove()
+      }
+    })
+  }
 
   onMount(() => {
     parseEmojis()
@@ -105,7 +51,7 @@ export default function (props: Props): JSX.Element {
       </select>
       <div
         ref={pickerRef}
-        class="grid grid-cols-5 mx-auto gap-2 overflow-y-auto max-h-50 p-2"
+        class="grid grid-cols-7 mx-auto gap-2 overflow-y-auto max-h-50 p-2"
       >
         <For each={emojis()}>
           {(emoji) => (
