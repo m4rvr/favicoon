@@ -14,6 +14,7 @@
     "adm-zip": "^0.5.9",
     "canvas-confetti": "^1.5.1",
     "csstype": "^3.1.0",
+    "emoji-datasource": "^14.0.0",
     "highlight.js": "^11.6.0",
     "jszip": "^3.10.0",
     "lambda-multipart-parser": "^1.0.1",

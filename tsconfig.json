@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+    "resolveJsonModule": true
   },
   "exclude": ["**/node_modules/**", "**/dist/**"]
 }

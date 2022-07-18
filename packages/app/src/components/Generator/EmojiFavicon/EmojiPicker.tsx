@@ -1,11 +1,15 @@
 import { For, type JSX, createSignal, onMount } from 'solid-js'
 import twemoji from 'twemoji'
+import data from 'emoji-datasource/emoji.json'
+
+console.log(data)
 
 const emojiCategories = [
   {
     name: 'Animals',
     isParsed: false,
     emojis: [
+      '\u1F6AA',
       '🐶',
       '🐱',
       '🐭',
