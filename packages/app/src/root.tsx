@@ -15,7 +15,7 @@ export default function Root() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="google-site-verification"
-          content="hSL8yCUYyoxn3lveTaMEpkwyedij_eRCs7g5uZM7af4"
+          content="8fEJuzL1mzNxtK_W0TUedsBGGV7o1vbID2xJaGCDY_Y"
         />
         <Meta />
         <Links />
