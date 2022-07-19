@@ -52,7 +52,7 @@ export default function (): JSX.Element {
   }
 
   return (
-    <Show when={true}>
+    <Show when={zipUrl()}>
       <div>
         <h3 class="mb-8 text-center font-semibold text-lg">
           Your favicon is ready!

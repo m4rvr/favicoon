@@ -12,12 +12,15 @@ interface EmojiState {
   blob: Blob | null
   scale: number
   rotation: number
+  base64: string | null
+  selectedImage: HTMLImageElement | null
 }
 
 interface State {
   view: View
   emoji: EmojiState
   zipBlob: Blob | null
+  generatedFiles: { hasSvg: boolean; appleTouchIcon: string } | null
 }
 
 type EmojiFaviconContextType = [
@@ -35,9 +38,12 @@ export default function (props: ParentProps): JSX.Element {
     emoji: {
       blob: null,
       scale: 1,
-      rotation: 0
+      rotation: 0,
+      base64: null,
+      selectedImage: null
     },
-    zipBlob: null
+    zipBlob: null,
+    generatedFiles: null
   })
 
   const context: EmojiFaviconContextType = [state, { setState }]

@@ -98,8 +98,7 @@ export default function (): JSX.Element {
   const formattedBytes = () => niceBytes(state.uploadedImage?.size || 0)
 
   const generateFavicon = async () => {
-    if (!state.uploadedImage) return
-    if (isGenerating()) return
+    if (!state.uploadedImage || isGenerating()) return
     setIsGenerating(true)
     const formData = new FormData()
     formData.append('file', state.uploadedImage.file)

@@ -13,10 +13,6 @@ export default function Root() {
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="google-site-verification"
-          content="8fEJuzL1mzNxtK_W0TUedsBGGV7o1vbID2xJaGCDY_Y"
-        />
         <Meta />
         <Links />
         <script

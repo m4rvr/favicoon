@@ -1,4 +1,4 @@
-import { type JSX, Show, createSignal, onMount } from 'solid-js'
+import { type JSX, Show, onMount } from 'solid-js'
 import { View, useEmojiFavicon } from '../../../context/EmojiFaviconContext.js'
 import EmojiPicker from './EmojiPicker.js'
 
@@ -12,31 +12,10 @@ export default function (): JSX.Element {
   let pixelRatio = 1
   const canvasSize = 512
   const previewCanvasSize = 80
-
-  const [selectedEmojiImage, setSelectedEmojiImage] =
-    createSignal<HTMLImageElement | null>(null)
   const [state, { setState }] = useEmojiFavicon()
 
-  onMount(() => {
-    pixelRatio = window.devicePixelRatio
-
-    if (canvasRef) {
-      canvasRef!.width = canvasSize * pixelRatio
-      canvasRef!.height = canvasSize * pixelRatio
-      context = canvasRef.getContext('2d')
-      context!.scale(pixelRatio, pixelRatio)
-    }
-
-    if (previewCanvasRef) {
-      previewCanvasRef!.width = previewCanvasSize * pixelRatio
-      previewCanvasRef!.height = previewCanvasSize * pixelRatio
-      previewContext = previewCanvasRef.getContext('2d')
-      previewContext!.scale(pixelRatio, pixelRatio)
-    }
-  })
-
   const drawEmoji = () => {
-    if (!selectedEmojiImage()) return
+    if (!state.emoji.selectedImage) return
 
     const size = (canvasSize / 100) * state.emoji.scale * 100
     const offset = (canvasSize - size) / 2
@@ -47,10 +26,12 @@ export default function (): JSX.Element {
     const translate = canvasSize / 2
 
     context!.translate(translate, translate)
-    context!.rotate(state.emoji.rotation)
+
+    const radians = (Math.PI / 180) * state.emoji.rotation
+    context!.rotate(radians)
 
     context!.drawImage(
-      selectedEmojiImage()!,
+      state.emoji.selectedImage,
       -translate + offset,
       -translate + offset,
       size,
@@ -61,7 +42,7 @@ export default function (): JSX.Element {
   }
 
   const drawPreviewEmoji = () => {
-    if (!selectedEmojiImage()) return
+    if (!state.emoji.selectedImage) return
 
     const size = (previewCanvasSize / 100) * state.emoji.scale * 100
     const offset = (previewCanvasSize - size) / 2
@@ -77,10 +58,12 @@ export default function (): JSX.Element {
     const translate = previewCanvasSize / 2
 
     previewContext!.translate(translate, translate)
-    previewContext!.rotate(state.emoji.rotation)
+
+    const radians = (Math.PI / 180) * state.emoji.rotation
+    previewContext!.rotate(radians)
 
     previewContext!.drawImage(
-      selectedEmojiImage()!,
+      state.emoji.selectedImage,
       -translate + offset,
       -translate + offset,
       size,
@@ -90,6 +73,26 @@ export default function (): JSX.Element {
     previewContext!.restore()
   }
 
+  onMount(() => {
+    pixelRatio = window.devicePixelRatio
+
+    if (canvasRef) {
+      canvasRef!.width = canvasSize * pixelRatio
+      canvasRef!.height = canvasSize * pixelRatio
+      context = canvasRef.getContext('2d')
+      context!.scale(pixelRatio, pixelRatio)
+      drawEmoji()
+    }
+
+    if (previewCanvasRef) {
+      previewCanvasRef!.width = previewCanvasSize * pixelRatio
+      previewCanvasRef!.height = previewCanvasSize * pixelRatio
+      previewContext = previewCanvasRef.getContext('2d')
+      previewContext!.scale(pixelRatio, pixelRatio)
+      drawPreviewEmoji()
+    }
+  })
+
   const onEmojiSelect = (img: HTMLImageElement) => {
     if (!context) return
 
@@ -97,7 +100,7 @@ export default function (): JSX.Element {
     ownImage.crossOrigin = 'anonymous'
     ownImage.src = img.src
     ownImage.onload = () => {
-      setSelectedEmojiImage(ownImage)
+      setState('emoji', (emoji) => ({ ...emoji, selectedImage: ownImage }))
       drawEmoji()
       drawPreviewEmoji()
     }
@@ -119,7 +122,7 @@ export default function (): JSX.Element {
 
   const onRotationChange = (event: InputEvent) => {
     const value = (event.target as HTMLInputElement).value
-    const rotation = (Math.PI / 180) * parseFloat(value)
+    const rotation = parseFloat(value)
 
     setState('emoji', (emoji) => ({ ...emoji, rotation }))
 
@@ -137,8 +140,14 @@ export default function (): JSX.Element {
 
   const continueWithEmoji = () => {
     canvasRef!.toBlob((blob) => {
-      setState('emoji', (emoji) => ({ ...emoji, blob }))
-      setState('view', View.EmojiInfo)
+      if (!blob) return
+      const reader = new FileReader()
+      reader.onload = () => {
+        const base64 = reader.result as string
+        setState('emoji', (emoji) => ({ ...emoji, blob, base64 }))
+        setState('view', View.EmojiInfo)
+      }
+      reader.readAsDataURL(blob)
     })
   }
 
@@ -155,36 +164,42 @@ export default function (): JSX.Element {
                 height: '80px'
               }}
             />
-            <Show when={!selectedEmojiImage()}>
+            <Show when={!state.emoji.selectedImage}>
               <p class="absolute top-0 left-0 w-full z-10 text-sm font-medium flex items-center justify-center h-full opacity-50 text-center p-4">
                 Select your emoji
               </p>
             </Show>
           </div>
           <p class="mt-4">Scale</p>
-          <input
-            ref={scaleInputRef}
-            type="range"
-            min="0.5"
-            max="1"
-            value="100"
-            step="0.01"
-            onInput={onScaleChange}
-            class="mt-1"
-            disabled={!selectedEmojiImage()}
-          />
+          <div class="flex items-center gap-2 text-sm mt-1">
+            <span>50%</span>
+            <input
+              ref={scaleInputRef}
+              type="range"
+              min="0.5"
+              max="1"
+              value={state.emoji.scale}
+              step="0.01"
+              onInput={onScaleChange}
+              disabled={!state.emoji.selectedImage}
+            />
+            <span>100%</span>
+          </div>
           <p class="mt-4">Rotation</p>
-          <input
-            ref={rotationInputRef}
-            type="range"
-            min="-180"
-            max="180"
-            value="0"
-            step="1"
-            onInput={onRotationChange}
-            class="mt-1"
-            disabled={!selectedEmojiImage()}
-          />
+          <div class="flex items-center gap-2 text-sm mt-1">
+            <span>-180°</span>
+            <input
+              ref={rotationInputRef}
+              type="range"
+              min="-180"
+              max="180"
+              value={state.emoji.rotation}
+              step="1"
+              onInput={onRotationChange}
+              disabled={!state.emoji.selectedImage}
+            />
+            <span>180°</span>
+          </div>
         </div>
         <div class="flex flex-col items-center">
           <h2 class="mb-4 text-center font-medium">Pick your emoji</h2>
@@ -195,22 +210,22 @@ export default function (): JSX.Element {
         <button
           class="px-4 py-2 rounded-lg"
           classList={{
-            'transition-transform hover:scale-103': !!selectedEmojiImage(),
-            'opacity-50': !selectedEmojiImage()
+            'transition-transform hover:scale-103': !!state.emoji.selectedImage,
+            'opacity-50': !state.emoji.selectedImage
           }}
           onClick={reset}
-          disabled={!selectedEmojiImage()}
+          disabled={!state.emoji.selectedImage}
         >
           Reset settings
         </button>
         <button
           class="bg-neutral-900 text-white px-4 py-2 rounded-lg"
           classList={{
-            'transition-transform hover:scale-103': !!selectedEmojiImage(),
-            'opacity-50': !selectedEmojiImage()
+            'transition-transform hover:scale-103': !!state.emoji.selectedImage,
+            'opacity-50': !state.emoji.selectedImage
           }}
           onClick={continueWithEmoji}
-          disabled={!selectedEmojiImage()}
+          disabled={!state.emoji.selectedImage}
         >
           Continue with Emoji
         </button>
