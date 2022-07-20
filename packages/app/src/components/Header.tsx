@@ -30,7 +30,7 @@ export default function (props: { title?: string }): JSX.Element {
   const twitterText =
     encodeURIComponent(`I've just generated my favicon in seconds with @favicoon!
 
-Check it out here: https://favicoon.netlify.app 🚀`)
+Check it out here: https://favicoon.com 🚀`)
 
   onMount(() => {
     setRandomButton(

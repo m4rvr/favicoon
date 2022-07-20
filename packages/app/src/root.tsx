@@ -17,7 +17,7 @@ export default function Root() {
         <Links />
         <script
           defer
-          data-domain="favicoon.netlify.app"
+          data-domain="favicoon.com"
           src="https://plausible.io/js/plausible.js"
         />
         <link rel="icon" href="/favicon.ico" sizes="any" />

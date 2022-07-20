@@ -7,7 +7,7 @@ export default function (): JSX.Element {
   return (
     <Layout>
       <Title>Favicoon - Oh no!</Title>
-      <HeadLink rel="canonical" href="https://favicon.netlify.app/404" />
+      <HeadLink rel="canonical" href="https://favicoon.com/404" />
       <div class="h-full flex flex-col items-center justify-center pb-50 gap-5">
         <h1 class="text-8xl font-medium">404 😕</h1>
         <h2 class="text-2xl">This page doesn't exist.</h2>
