@@ -4,6 +4,7 @@ import { toast } from 'solid-toast'
 import hjs from 'highlight.js'
 import { useEmojiFavicon } from '../../../context/EmojiFaviconContext.js'
 import { readFile } from '../../../utils.js'
+import '../../../assets/code-theme.css'
 
 export default function (): JSX.Element {
   let canvasRef: HTMLCanvasElement | undefined

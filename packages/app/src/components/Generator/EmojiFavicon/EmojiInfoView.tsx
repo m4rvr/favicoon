@@ -40,8 +40,17 @@ export default function (): JSX.Element {
         }}
       >
         <div class="flex gap-14 w-full">
-          <div class="flex flex-col w-1/2">
+          <div class="flex flex-col w-1/2 items-center">
             <h2 class="font-medium text-center mb-4">Selected Emoji</h2>
+            <div class="border border-neutral-200 rounded-lg shadow-lg shadow-neutral-200 bg-white w-20 h-20 mb-4">
+              <img src={state.emoji.base64!} />
+            </div>
+            <p class="mb-1">
+              <strong>Scale:</strong> {state.emoji.scale * 100}%
+            </p>
+            <p>
+              <strong>Rotation:</strong> {state.emoji.rotation}°
+            </p>
           </div>
           <div class="flex flex-col w-1/2">
             <h2 class="font-medium text-center mb-4">Preview</h2>
