@@ -23,6 +23,7 @@ export default function (): JSX.Element {
         content="Quickly generate a favicon from an emoji for your website for free."
       />
       <Meta property="og:image" content="/og-image-image.png" />
+      <Meta property="twitter:image" content="/og-image-image.png" />
       <Meta
         property="twitter:url"
         content="https://favicoon.com/favicon-generator/image"
