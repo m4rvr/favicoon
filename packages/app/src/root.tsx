@@ -14,6 +14,10 @@ export default function Root() {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <meta name="twitter:card" content="summary_large_immage" />
+        <meta name="twitter:site" content="@marvr_" />
+        <meta name="twitter:creator" content="@marvr_" />
+        <meta property="twitter:domain" content="favicoon.com" />
         <Links />
         <script
           defer
