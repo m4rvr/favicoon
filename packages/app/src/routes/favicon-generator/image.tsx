@@ -20,7 +20,7 @@ export default function (): JSX.Element {
       />
       <Meta
         property="og:description"
-        content="Quickly generate a favicon from an emoji for your website for free."
+        content="Quickly generate a favicon from an image for your website for free."
       />
       <Meta property="og:image" content="/og-image-image.png" />
       <Meta property="twitter:image" content="/og-image-image.png" />
