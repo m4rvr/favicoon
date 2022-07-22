@@ -33,10 +33,10 @@
     "solid-app-router": "^0.4.1",
     "solid-js": "^1.4.6",
     "solid-meta": "^0.27.5",
-    "solid-start": "next",
-    "solid-start-static": "next",
+    "solid-start": "0.1.0-alpha.94",
+    "solid-start-static": "0.1.0-alpha.94",
     "solid-toast": "^0.3.2",
-    "undici": "^4.12.2",
+    "undici": "^5.8.0",
     "unocss": "^0.44.3",
     "vite": "2.9.14"
   }
