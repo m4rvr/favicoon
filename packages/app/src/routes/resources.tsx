@@ -7,7 +7,7 @@ export default function (): JSX.Element {
       <div class="h-full">
         <div class="max-w-lg px-4 mx-auto">
           <h1 class="text-2xl mb-4 font-medium">Resources</h1>
-          <h2 class="mb-2 text-lg">Preview Images</h2>
+          <h2 class="mb-2 text-lg font-medium">Preview Images</h2>
           <ul class="list-disc ml-4">
             <li>
               <a
@@ -29,6 +29,28 @@ export default function (): JSX.Element {
               </a>
             </li>
           </ul>
+          <h2 class="mb-2 text-lg mt-5 font-medium">Emojis</h2>
+          <p>
+            The emojis used for the generator are from the open source project{' '}
+            <a
+              href="https://github.com/twitter/twemoji"
+              title="Twemoji"
+              target="_blank"
+              class="underline"
+            >
+              Twemoji
+            </a>
+            . The graphics are licensed under{' '}
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              title="CC-BY 4.0"
+              target="_blank"
+              class="underline"
+            >
+              CC-BY 4.0
+            </a>{' '}
+            and Copyright 2019 Twitter, Inc and other contributors.
+          </p>
         </div>
       </div>
     </Layout>

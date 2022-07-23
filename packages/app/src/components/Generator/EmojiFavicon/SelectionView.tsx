@@ -1,4 +1,5 @@
 import { type JSX, Show, onMount } from 'solid-js'
+import { Link } from 'solid-app-router'
 import { View, useEmojiFavicon } from '../../../context/EmojiFaviconContext.js'
 import EmojiPicker from './EmojiPicker.js'
 
@@ -153,6 +154,27 @@ export default function (): JSX.Element {
 
   return (
     <div class="w-full max-w-2xl mx-auto px-4">
+      <p class="text-sm mb-6 flex items-center gap-1 justify-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        See license for emojis on{' '}
+        <Link href="/resources" title="Resources" class="underline">
+          Resources
+        </Link>{' '}
+        before use.
+      </p>
       <div class="grid grid-cols-2 gap-4">
         <div class="flex flex-col items-center">
           <h2 class="mb-4 text-center font-medium">Preview</h2>
@@ -202,7 +224,7 @@ export default function (): JSX.Element {
           </div>
         </div>
         <div class="flex flex-col items-center">
-          <h2 class="mb-4 text-center font-medium">Pick your emoji</h2>
+          <h2 class="mb-1 text-center font-medium">Pick your emoji</h2>
           <EmojiPicker onEmojiSelect={onEmojiSelect} />
         </div>
       </div>
