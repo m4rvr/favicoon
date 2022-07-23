@@ -7,10 +7,6 @@
     {
       "name": "app",
       "path": "packages/app"
-    },
-    {
-      "name": "api",
-      "path": "packages/api"
     }
   ]
 }
