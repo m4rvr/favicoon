@@ -177,13 +177,13 @@ export default function (): JSX.Element {
               ref={scaleInputRef}
               type="range"
               min="0.5"
-              max="1"
+              max="2"
               value={state.emoji.scale}
               step="0.01"
               onInput={onScaleChange}
               disabled={!state.emoji.selectedImage}
             />
-            <span>100%</span>
+            <span>200%</span>
           </div>
           <p class="mt-4">Rotation</p>
           <div class="flex items-center gap-2 text-sm mt-1">
