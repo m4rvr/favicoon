@@ -113,7 +113,7 @@ const handler: Handler = async (event) => {
             file = await pngToIco(scaledPng)
           }
 
-          zip.addFile(`/${name}.${format}`, file)
+          zip.addFile(`${name}.${format}`, file)
           resolve(true)
         })
     })
@@ -122,16 +122,16 @@ const handler: Handler = async (event) => {
   await Promise.all(filePromises)
 
   if (isSvg) {
-    zip.addFile('/favicon.svg', image.content)
+    zip.addFile('favicon.svg', image.content)
   }
 
   zip.addFile(
-    '/manifest.webmanifest',
+    'manifest.webmanifest',
     Buffer.alloc(manifestCode.length, manifestCode)
   )
 
   const readme = readmeContent(false)
-  zip.addFile('/README.txt', Buffer.alloc(readme.length, readme))
+  zip.addFile('README.txt', Buffer.alloc(readme.length, readme))
 
   console.timeEnd('create-zip')
 
