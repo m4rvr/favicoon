@@ -57,7 +57,6 @@ export default function (): JSX.Element {
     )
 
     const translate = previewCanvasSize / 2
-
     previewContext!.translate(translate, translate)
 
     const radians = (Math.PI / 180) * state.emoji.rotation
@@ -94,12 +93,22 @@ export default function (): JSX.Element {
     }
   })
 
-  const onEmojiSelect = (img: HTMLImageElement) => {
+  const onEmojiSelect = async (img: HTMLImageElement) => {
     if (!context) return
 
+    const svgCode = await fetch(img.src).then((res) => res.text())
+    const parsedSvg = new DOMParser().parseFromString(svgCode, 'image/svg+xml')
+    const svg = parsedSvg.documentElement
+    svg.setAttribute('width', '512')
+    svg.setAttribute('height', '512')
+
+    const serializedSvg = new XMLSerializer().serializeToString(svg)
+    const url = `data:image/svg+xml;charset=utf8,${encodeURIComponent(
+      serializedSvg
+    )}`
+
     const ownImage = new Image()
-    ownImage.crossOrigin = 'anonymous'
-    ownImage.src = img.src
+    ownImage.src = url
     ownImage.onload = () => {
       setState('emoji', (emoji) => ({ ...emoji, selectedImage: ownImage }))
       drawEmoji()
